@@ -1,6 +1,8 @@
 GOOS?=linux
 GOARCH?=amd64
 
+export GO111MODULE=on
+
 NAME=vc-gateway
 VERSION=$$(git describe --abbrev=0)-$$(git rev-parse --short HEAD)
 
@@ -16,6 +18,9 @@ build:
 			-ldflags="-w -s -X main.Version=${VERSION}" \
 			-o bin/${NAME} \
 			./cmd/main.go
+
+deps:
+	go mod vendor
 
 docker-build:
 	docker build -t gcr.io/${GCP_PROJECT}/${NAME}:${VERSION} -f Dockerfile .

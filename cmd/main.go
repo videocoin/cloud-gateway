@@ -5,8 +5,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/VideoCoin/cloud-gateway/pkg/logger"
 	"github.com/VideoCoin/cloud-gateway/service"
+	"github.com/VideoCoin/cloud-pkg/logger"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/sirupsen/logrus"
 )

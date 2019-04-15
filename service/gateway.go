@@ -7,7 +7,7 @@ import (
 	accountsv1 "github.com/VideoCoin/cloud-api/accounts/v1"
 	usersv1 "github.com/VideoCoin/cloud-api/users/v1"
 
-	"github.com/VideoCoin/cloud-gateway/pkg/grpcutil"
+	"github.com/VideoCoin/cloud-pkg/grpcutil"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
