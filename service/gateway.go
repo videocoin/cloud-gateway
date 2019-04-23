@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	accountsv1 "github.com/VideoCoin/cloud-api/accounts/v1"
+	pipelinesv1 "github.com/VideoCoin/cloud-api/pipelines/v1"
 	usersv1 "github.com/VideoCoin/cloud-api/users/v1"
 
 	"github.com/VideoCoin/cloud-pkg/grpcutil"
@@ -45,15 +45,10 @@ func NewRpcGateway(cfg *Config) (*RpcGateway, error) {
 		return nil, err
 	}
 
-	err = accountsv1.RegisterAccountServiceHandlerFromEndpoint(ctx, mux, gw.cfg.AccountsRpcAddr, opts)
+	err = pipelinesv1.RegisterPipelineServiceHandlerFromEndpoint(ctx, mux, gw.cfg.PipelinesRpcAddr, opts)
 	if err != nil {
 		return nil, err
 	}
-
-	// err = streamsv1.RegisterStreamServiceHandlerFromEndpoint(ctx, mux, gw.cfg.StreamsRpcAddr, opts)
-	// if err != nil {
-	// 	return nil, err
-	// }
 
 	gw.gw = mux
 
