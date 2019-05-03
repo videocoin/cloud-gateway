@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	ServiceName string = "vc_gateway"
+	ServiceName string = "gateway"
 	Version     string = "dev"
 )
 

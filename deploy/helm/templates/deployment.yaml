@@ -1,0 +1,59 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicasCount }}
+  strategy:
+    rollingUpdate:
+      maxUnavailable: {{ .Values.maxUnavailableCount }}
+  template:
+    metadata:
+      name: {{ .Release.Name }}
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.internalHttpPort }}
+          env:
+            - name: GATEWAY_ADDR
+              value: 0.0.0.0:{{ .Values.service.internalHttpPort }}
+            - name: GATEWAY_USERSRPCADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Chart.Name }}
+                  key: usersRpcAddr
+            - name: GATEWAY_PIPELINESRPCADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Chart.Name }}
+                  key: pipelinesRpcAddr
+            - name: SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Chart.Name }}
+                  key: sentryDsn
+          {{- if .Values.resources }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}
+        - name: secrets
+          secret:
+            secretName: {{ .Release.Name }}
+
+
+
+
+

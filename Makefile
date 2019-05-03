@@ -1,13 +1,9 @@
 GOOS?=linux
 GOARCH?=amd64
 
-export GO111MODULE=on
-
-NAME=vc-gateway
+NAME=gateway
+GCP_PROJECT=videocoin-network
 VERSION=$$(git describe --abbrev=0)-$$(git rev-parse --short HEAD)
-
-CHARTS_BUCKET=videocoin-cloud-charts
-GCP_PROJECT=videocoin
 
 version:
 	@echo ${VERSION}
@@ -27,19 +23,5 @@ docker-build:
 
 docker-push:
 	gcloud docker -- push gcr.io/${GCP_PROJECT}/${NAME}:${VERSION}
-
-helm-package:
-	@echo "Packaging ${NAME}..."
-	@helm package --save=false -d helm/ helm/charts/${NAME}
-
-helm-repo-index:
-	@echo "Indexing charts repository..."
-	@helm repo index helm/repo --url https://${CHARTS_BUCKET}.storage.googleapis.com
-
-helm-repo-sync:
-	@echo "Syncing repo..."
-	@gsutil -m -h "Cache-Control:public,max-age=0" cp -a public-read helm/repo/* gs://${CHARTS_BUCKET}
-
-helm-repo-update: helm-package helm-repo-index helm-repo-sync
 
 release: build docker-build docker-push
