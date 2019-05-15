@@ -2,6 +2,12 @@ cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMT
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/VideoCoin/cloud-api v0.0.0-20190423225955-542ef095fa18 h1:Dmvgu6npSLD8PM1ee1kDP3mzyuyjzjmVGCeMDcki834=
 github.com/VideoCoin/cloud-api v0.0.0-20190423225955-542ef095fa18/go.mod h1:BfO7vo1wOuXAFn5PdxKjgbvyAoa2ERilXVzMc04NB34=
+github.com/VideoCoin/cloud-api v0.0.0-20190506233517-2250c7c0686e h1:3IYwtFm0/Rex9+qXqNjMnG+G1Jm05aZr0blWVxVQlGs=
+github.com/VideoCoin/cloud-api v0.0.0-20190506233517-2250c7c0686e/go.mod h1:BfO7vo1wOuXAFn5PdxKjgbvyAoa2ERilXVzMc04NB34=
+github.com/VideoCoin/cloud-api v0.0.0-20190508040712-1fda4cc65af1 h1:Ua/Ub+jWNpMFGNswuQnGTtArMKfW1luXtxWlXdQvaig=
+github.com/VideoCoin/cloud-api v0.0.0-20190508040712-1fda4cc65af1/go.mod h1:BfO7vo1wOuXAFn5PdxKjgbvyAoa2ERilXVzMc04NB34=
+github.com/VideoCoin/cloud-api v0.0.0-20190515042944-b7ed11f97401 h1:9qBBq2t+jE1H9IL6Y0TYjK4soQ3IviW9hC0ympfQbII=
+github.com/VideoCoin/cloud-api v0.0.0-20190515042944-b7ed11f97401/go.mod h1:BfO7vo1wOuXAFn5PdxKjgbvyAoa2ERilXVzMc04NB34=
 github.com/VideoCoin/cloud-pkg v0.0.0-20190502204644-714c370fbe69 h1:IM3Nr4OIw0zoWZ9UWHG8gURzTQzPQ0FZ6cLPAYgdZAs=
 github.com/VideoCoin/cloud-pkg v0.0.0-20190502204644-714c370fbe69/go.mod h1:Vks3HtLx+ETgxZzyb9FiD9lanDRnbhLFhPZc68TKpbY=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973 h1:xJ4a3vCFaGF/jqvzLMYoU8P317H5OQ+Via4RmuPwCS0=

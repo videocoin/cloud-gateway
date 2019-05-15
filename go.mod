@@ -3,7 +3,7 @@ module github.com/VideoCoin/cloud-gateway
 go 1.12
 
 require (
-	github.com/VideoCoin/cloud-api v0.0.0-20190423225955-542ef095fa18
+	github.com/VideoCoin/cloud-api v0.0.0-20190515042944-b7ed11f97401
 	github.com/VideoCoin/cloud-pkg v0.0.0-20190502204644-714c370fbe69
 	github.com/certifi/gocertifi v0.0.0-20190415143156-92f724a62f3e // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
