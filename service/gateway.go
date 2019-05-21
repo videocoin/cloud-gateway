@@ -4,10 +4,12 @@ import (
 	"context"
 	"net/http"
 
+	accountsv1 "github.com/VideoCoin/cloud-api/accounts/v1"
 	pipelinesv1 "github.com/VideoCoin/cloud-api/pipelines/v1"
 	usersv1 "github.com/VideoCoin/cloud-api/users/v1"
 
 	"github.com/VideoCoin/cloud-pkg/grpcutil"
+	"github.com/gogo/gateway"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -33,14 +35,23 @@ func NewRpcGateway(cfg *Config) (*RpcGateway, error) {
 	}
 
 	ctx := context.Background()
-	marshaler := &runtime.JSONPb{EmitDefaults: true}
+	marshaler := &gateway.JSONPb{
+		EmitDefaults: true,
+		Indent:       "  ",
+		OrigName:     true,
+	}
 	mux := runtime.NewServeMux(
 		runtime.WithMarshalerOption(runtime.MIMEWildcard, marshaler),
 		grpcutil.WithProtoHTTPErrorHandler(),
 	)
 	opts := grpcutil.DefaultClientDialOpts(cfg.Logger)
 
-	err := usersv1.RegisterUserServiceHandlerFromEndpoint(ctx, mux, gw.cfg.UsersRpcAddr, opts)
+	err := accountsv1.RegisterAccountServiceHandlerFromEndpoint(ctx, mux, gw.cfg.AccountsRpcAddr, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	err = usersv1.RegisterUserServiceHandlerFromEndpoint(ctx, mux, gw.cfg.UsersRpcAddr, opts)
 	if err != nil {
 		return nil, err
 	}
