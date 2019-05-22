@@ -4,8 +4,8 @@ go 1.12
 
 require (
 	cloud.google.com/go v0.39.0 // indirect
-	github.com/VideoCoin/cloud-api v0.0.0-20190520191347-d5f0275c9fe3
-	github.com/VideoCoin/cloud-pkg v0.0.0-20190502204644-714c370fbe69
+	github.com/VideoCoin/cloud-api v0.0.0-20190521230011-1b1bec730f23
+	github.com/VideoCoin/cloud-pkg v0.0.0-20190513053603-e540bd177f27
 	github.com/certifi/gocertifi v0.0.0-20190415143156-92f724a62f3e // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/evalphobia/logrus_sentry v0.8.2 // indirect
@@ -38,14 +38,15 @@ require (
 	golang.org/x/image v0.0.0-20190516052701-61b8692d9a5c // indirect
 	golang.org/x/lint v0.0.0-20190409202823-959b441ac422 // indirect
 	golang.org/x/mobile v0.0.0-20190509164839-32b2708ab171 // indirect
+	golang.org/x/net v0.0.0-20190522135303-fa69b94a3b58 // indirect
 	golang.org/x/oauth2 v0.0.0-20190517181255-950ef44c6e07 // indirect
-	golang.org/x/sys v0.0.0-20190520201301-c432e742b0af // indirect
+	golang.org/x/sys v0.0.0-20190522044717-8097e1b27ff5 // indirect
 	golang.org/x/text v0.3.2 // indirect
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4 // indirect
-	golang.org/x/tools v0.0.0-20190520220859-26647e34d3c0 // indirect
+	golang.org/x/tools v0.0.0-20190521203540-521d6ed310dd // indirect
 	google.golang.org/appengine v1.6.0 // indirect
 	gopkg.in/yaml.v2 v2.2.2 // indirect
-	honnef.co/go/tools v0.0.0-20190418001031-e561f6794a2a // indirect
+	honnef.co/go/tools v0.0.0-20190522022531-bad1bd262ba8 // indirect
 )
 
 replace github.com/VideoCoin/cloud-api => ../cloud-api
