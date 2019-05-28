@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	cloud.google.com/go v0.39.0 // indirect
-	github.com/VideoCoin/cloud-api v0.0.0-20190524042422-3fb2571c5543
+	github.com/VideoCoin/cloud-api v0.0.0-20190528211536-5d43c976a5ee
 	github.com/VideoCoin/cloud-pkg v0.0.0-20190513053603-e540bd177f27
 	github.com/certifi/gocertifi v0.0.0-20190415143156-92f724a62f3e // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
@@ -40,10 +40,10 @@ require (
 	golang.org/x/mobile v0.0.0-20190509164839-32b2708ab171 // indirect
 	golang.org/x/net v0.0.0-20190522155817-f3200d17e092 // indirect
 	golang.org/x/oauth2 v0.0.0-20190523182746-aaccbc9213b0 // indirect
-	golang.org/x/sys v0.0.0-20190523142557-0e01d883c5c5 // indirect
+	golang.org/x/sys v0.0.0-20190528183647-3626398d7749 // indirect
 	golang.org/x/text v0.3.2 // indirect
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4 // indirect
-	golang.org/x/tools v0.0.0-20190523174634-38d8bcfa38af // indirect
+	golang.org/x/tools v0.0.0-20190528202502-08bd53a4b4c4 // indirect
 	google.golang.org/appengine v1.6.0 // indirect
 	google.golang.org/genproto v0.0.0-20190522204451-c2c4e71fbf69 // indirect
 	google.golang.org/grpc v1.21.0 // indirect
@@ -51,4 +51,4 @@ require (
 	honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc // indirect
 )
 
-//replace github.com/VideoCoin/cloud-api => ../cloud-api
+replace github.com/VideoCoin/cloud-api => ../cloud-api
