@@ -41,12 +41,12 @@ spec:
                 configMapKeyRef:
                   name: {{ .Chart.Name }}
                   key: pipelinesRpcAddr
-            - name: MANAGER_RPC_ADDR
+            - name: GATEWAY_MANAGER_RPC_ADDR
               valueFrom:
                 configMapKeyRef:
                   key: managerRpcAddr
                   name: {{ .Chart.Name }}
-            - name: VERIFIER_RPC_ADDR
+            - name: GATEWAY_VERIFIER_RPC_ADDR
               valueFrom:
                 configMapKeyRef:
                   key: verifierRpcAddr
