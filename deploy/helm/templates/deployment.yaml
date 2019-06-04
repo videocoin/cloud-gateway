@@ -41,6 +41,16 @@ spec:
                 configMapKeyRef:
                   name: {{ .Chart.Name }}
                   key: pipelinesRpcAddr
+            - name: MANAGER_RPC_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  key: managerRpcAddr
+                  name: {{ .Chart.Name }}
+            - name: VERIFIER_RPC_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  key: verifierRpcAddr
+                  name: {{ .Chart.Name }}
             - name: SENTRY_DSN
               valueFrom:
                 secretKeyRef:
