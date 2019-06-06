@@ -51,6 +51,8 @@ function get_vars() {
     readonly KUBE_CONTEXT=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/common/kube_context`
     readonly ACCOUNTS_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/accountsRpcAddr`
     readonly PIPELINES_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/pipelinesRpcAddr`
+    readonly MANAGER_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/managerRpcAddr`
+    readonly VERIFIER_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/verifierRpcAddr`
     readonly USERS_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/usersRpcAddr`
     readonly SENTRY_DSN=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/secrets/sentryDsn`
 }
@@ -64,6 +66,8 @@ function deploy() {
         --set config.usersRpcAddr="${USERS_RPC_ADDR}" \
         --set config.accountsRpcAddr="${ACCOUNTS_RPC_ADDR}" \
         --set config.pipelinesRpcAddr="${PIPELINES_RPC_ADDR}" \
+        --set config.managerRpcAddr="${MANAGER_RPC_ADDR}" \
+        --set config.verifierRpcAddr="${VERIFIER_RPC_ADDR}" \
         --set secrets.sentryDsn="${SENTRY_DSN}" \
         --wait ${CHART_NAME} ${CHART_DIR}
 }
