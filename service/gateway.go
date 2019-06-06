@@ -17,7 +17,41 @@ import (
 	"github.com/labstack/echo/middleware"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
+	"google.golang.org/grpc/metadata"
 )
+
+func injectHeadersIntoMetadata(ctx context.Context, req *http.Request) metadata.MD {
+	var (
+		otHeaders = []string{
+			"x-request-id",
+			"x-b3-traceid",
+			"x-b3-spanid",
+			"x-b3-parentspanid",
+			"x-b3-sampled",
+			"x-b3-flags",
+			"x-ot-span-context"}
+	)
+	var pairs []string
+
+	for _, h := range otHeaders {
+		if v := req.Header.Get(h); len(v) > 0 {
+			pairs = append(pairs, h, v)
+		}
+	}
+	return metadata.Pairs(pairs...)
+}
+
+type annotator func(context.Context, *http.Request) metadata.MD
+
+func chainGrpcAnnotators(annotators ...annotator) annotator {
+	return func(c context.Context, r *http.Request) metadata.MD {
+		mds := []metadata.MD{}
+		for _, a := range annotators {
+			mds = append(mds, a(c, r))
+		}
+		return metadata.Join(mds...)
+	}
+}
 
 type RpcGateway struct {
 	cfg    *Config
@@ -42,8 +76,12 @@ func NewRpcGateway(cfg *Config) (*RpcGateway, error) {
 		Indent:       "  ",
 		OrigName:     true,
 	}
+
+	annotators := []annotator{injectHeadersIntoMetadata}
+
 	mux := runtime.NewServeMux(
 		runtime.WithMarshalerOption(runtime.MIMEWildcard, marshaler),
+		runtime.WithMetadata(chainGrpcAnnotators(annotators...)),
 		grpcutil.WithProtoHTTPErrorHandler(),
 	)
 	opts := grpcutil.DefaultClientDialOpts(cfg.Logger)
