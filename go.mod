@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	cloud.google.com/go v0.39.0 // indirect
-	github.com/VideoCoin/cloud-api v0.0.0-20190528211536-5d43c976a5ee
+	github.com/VideoCoin/cloud-api v0.0.0-20190531195142-ce0639125f49
 	github.com/VideoCoin/cloud-pkg v0.0.0-20190513053603-e540bd177f27
 	github.com/certifi/gocertifi v0.0.0-20190415143156-92f724a62f3e // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
