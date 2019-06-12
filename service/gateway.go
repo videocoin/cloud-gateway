@@ -4,19 +4,19 @@ import (
 	"context"
 	"net/http"
 
-	accountsv1 "github.com/VideoCoin/cloud-api/accounts/v1"
-	managerv1 "github.com/VideoCoin/cloud-api/manager/v1"
-	pipelinesv1 "github.com/VideoCoin/cloud-api/pipelines/v1"
-	usersv1 "github.com/VideoCoin/cloud-api/users/v1"
-	verifierv1 "github.com/VideoCoin/cloud-api/verifier/v1"
+	accountsv1 "github.com/videocoin/cloud-api/accounts/v1"
+	managerv1 "github.com/videocoin/cloud-api/manager/v1"
+	pipelinesv1 "github.com/videocoin/cloud-api/pipelines/v1"
+	usersv1 "github.com/videocoin/cloud-api/users/v1"
+	verifierv1 "github.com/videocoin/cloud-api/verifier/v1"
 
-	"github.com/VideoCoin/cloud-pkg/grpcutil"
 	"github.com/gogo/gateway"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
+	"github.com/videocoin/cloud-pkg/grpcutil"
 	"google.golang.org/grpc/metadata"
 )
 
