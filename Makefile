@@ -26,7 +26,7 @@ docker-build:
 	docker build -t gcr.io/${GCP_PROJECT}/${NAME}:${VERSION} -f Dockerfile .
 
 docker-push:
-	gcloud docker -- push gcr.io/${GCP_PROJECT}/${NAME}:${VERSION}
+	docker gcr.io/${GCP_PROJECT}/${NAME}:${VERSION}
 
 release: docker-build docker-push
 
