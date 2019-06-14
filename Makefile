@@ -5,6 +5,10 @@ NAME=gateway
 GCP_PROJECT=videocoin-network
 VERSION=$$(git describe --abbrev=0)-$$(git rev-parse --short HEAD)
 
+.PHONY: deploy
+
+default: build
+
 version:
 	@echo ${VERSION}
 
@@ -24,4 +28,7 @@ docker-build:
 docker-push:
 	gcloud docker -- push gcr.io/${GCP_PROJECT}/${NAME}:${VERSION}
 
-release: build docker-build docker-push
+release: docker-build docker-push
+
+deploy:
+	ENV=${ENV} deploy/deploy.sh
