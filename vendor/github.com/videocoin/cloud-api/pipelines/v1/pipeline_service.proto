@@ -45,7 +45,7 @@ service PipelineService {
 
     rpc GetByAccessCode(PipelineRequest) returns (PipelineProfile) {
         option (google.api.http) = {
-            get: "/api/v1/pipelines/code/{id}"
+            get: "/api/v1/pipelines/code/{access_code}"
         };
     }
 
