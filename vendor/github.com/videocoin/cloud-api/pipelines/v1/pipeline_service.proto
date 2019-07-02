@@ -105,6 +105,5 @@ message UpdatePipelineRequest {
     string client_address = 5;
     uint64 stream_id = 6;
     string stream_address = 7;
-    PipelineStatus status = 8;
-    cloud.api.profiles.v1.ProfileId profile_id = 9;
+    cloud.api.profiles.v1.ProfileId profile_id = 8;
 }
