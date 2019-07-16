@@ -9,7 +9,7 @@ require (
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/prometheus/client_golang v0.9.4
 	github.com/sirupsen/logrus v1.4.2
-	github.com/videocoin/cloud-api v0.1.131
+	github.com/videocoin/cloud-api v0.1.136
 	github.com/videocoin/cloud-pkg v0.0.2
 	google.golang.org/grpc v1.21.1
 )
