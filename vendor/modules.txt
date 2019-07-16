@@ -99,7 +99,7 @@ github.com/sirupsen/logrus
 github.com/valyala/bytebufferpool
 # github.com/valyala/fasttemplate v1.0.1
 github.com/valyala/fasttemplate
-# github.com/videocoin/cloud-api v0.1.136 => ../cloud-api
+# github.com/videocoin/cloud-api v0.1.157 => ../cloud-api
 github.com/videocoin/cloud-api/accounts/v1
 github.com/videocoin/cloud-api/manager/v1
 github.com/videocoin/cloud-api/pipelines/v1
