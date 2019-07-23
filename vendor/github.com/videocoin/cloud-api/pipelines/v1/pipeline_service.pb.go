@@ -94,8 +94,7 @@ func (*CreatePipelineRequest) XXX_MessageName() string {
 }
 
 type PipelineRequest struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	StreamId             string   `protobuf:"bytes,2,opt,name=stream_id,json=streamId,proto3" json:"stream_id,omitempty"`
+	PipelineId           string   `protobuf:"bytes,1,opt,name=pipeline_id,json=pipelineId,proto3" json:"pipeline_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -134,16 +133,9 @@ func (m *PipelineRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_PipelineRequest proto.InternalMessageInfo
 
-func (m *PipelineRequest) GetId() string {
+func (m *PipelineRequest) GetPipelineId() string {
 	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *PipelineRequest) GetStreamId() string {
-	if m != nil {
-		return m.StreamId
+		return m.PipelineId
 	}
 	return ""
 }
@@ -152,18 +144,120 @@ func (*PipelineRequest) XXX_MessageName() string {
 	return "cloud.api.pipelines.v1.PipelineRequest"
 }
 
+type CreateStreamRequest struct {
+	PipelineId           string   `protobuf:"bytes,1,opt,name=pipeline_id,json=pipelineId,proto3" json:"pipeline_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateStreamRequest) Reset()         { *m = CreateStreamRequest{} }
+func (m *CreateStreamRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateStreamRequest) ProtoMessage()    {}
+func (*CreateStreamRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd9c63b87d2e4a98, []int{2}
+}
+func (m *CreateStreamRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CreateStreamRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CreateStreamRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CreateStreamRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateStreamRequest.Merge(m, src)
+}
+func (m *CreateStreamRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *CreateStreamRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateStreamRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateStreamRequest proto.InternalMessageInfo
+
+func (m *CreateStreamRequest) GetPipelineId() string {
+	if m != nil {
+		return m.PipelineId
+	}
+	return ""
+}
+
+func (*CreateStreamRequest) XXX_MessageName() string {
+	return "cloud.api.pipelines.v1.CreateStreamRequest"
+}
+
+type StreamRequest struct {
+	StreamId             string   `protobuf:"bytes,1,opt,name=stream_id,json=streamId,proto3" json:"stream_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *StreamRequest) Reset()         { *m = StreamRequest{} }
+func (m *StreamRequest) String() string { return proto.CompactTextString(m) }
+func (*StreamRequest) ProtoMessage()    {}
+func (*StreamRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd9c63b87d2e4a98, []int{3}
+}
+func (m *StreamRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *StreamRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_StreamRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *StreamRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StreamRequest.Merge(m, src)
+}
+func (m *StreamRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *StreamRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_StreamRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StreamRequest proto.InternalMessageInfo
+
+func (m *StreamRequest) GetStreamId() string {
+	if m != nil {
+		return m.StreamId
+	}
+	return ""
+}
+
+func (*StreamRequest) XXX_MessageName() string {
+	return "cloud.api.pipelines.v1.StreamRequest"
+}
+
 type ListResponse struct {
-	Items                []*PipelineProfile `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
-	XXX_unrecognized     []byte             `json:"-"`
-	XXX_sizecache        int32              `json:"-"`
+	Items                []*PipelineListItem `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
+	XXX_unrecognized     []byte              `json:"-"`
+	XXX_sizecache        int32               `json:"-"`
 }
 
 func (m *ListResponse) Reset()         { *m = ListResponse{} }
 func (m *ListResponse) String() string { return proto.CompactTextString(m) }
 func (*ListResponse) ProtoMessage()    {}
 func (*ListResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9c63b87d2e4a98, []int{2}
+	return fileDescriptor_cd9c63b87d2e4a98, []int{4}
 }
 func (m *ListResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -192,7 +286,7 @@ func (m *ListResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ListResponse proto.InternalMessageInfo
 
-func (m *ListResponse) GetItems() []*PipelineProfile {
+func (m *ListResponse) GetItems() []*PipelineListItem {
 	if m != nil {
 		return m.Items
 	}
@@ -216,7 +310,7 @@ func (m *UpdatePipelineRequest) Reset()         { *m = UpdatePipelineRequest{} }
 func (m *UpdatePipelineRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdatePipelineRequest) ProtoMessage()    {}
 func (*UpdatePipelineRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9c63b87d2e4a98, []int{3}
+	return fileDescriptor_cd9c63b87d2e4a98, []int{5}
 }
 func (m *UpdatePipelineRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -287,7 +381,7 @@ func (m *UpdatePipelineStreamRequest) Reset()         { *m = UpdatePipelineStrea
 func (m *UpdatePipelineStreamRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdatePipelineStreamRequest) ProtoMessage()    {}
 func (*UpdatePipelineStreamRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9c63b87d2e4a98, []int{4}
+	return fileDescriptor_cd9c63b87d2e4a98, []int{6}
 }
 func (m *UpdatePipelineStreamRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -373,6 +467,10 @@ func init() {
 	golang_proto.RegisterType((*CreatePipelineRequest)(nil), "cloud.api.pipelines.v1.CreatePipelineRequest")
 	proto.RegisterType((*PipelineRequest)(nil), "cloud.api.pipelines.v1.PipelineRequest")
 	golang_proto.RegisterType((*PipelineRequest)(nil), "cloud.api.pipelines.v1.PipelineRequest")
+	proto.RegisterType((*CreateStreamRequest)(nil), "cloud.api.pipelines.v1.CreateStreamRequest")
+	golang_proto.RegisterType((*CreateStreamRequest)(nil), "cloud.api.pipelines.v1.CreateStreamRequest")
+	proto.RegisterType((*StreamRequest)(nil), "cloud.api.pipelines.v1.StreamRequest")
+	golang_proto.RegisterType((*StreamRequest)(nil), "cloud.api.pipelines.v1.StreamRequest")
 	proto.RegisterType((*ListResponse)(nil), "cloud.api.pipelines.v1.ListResponse")
 	golang_proto.RegisterType((*ListResponse)(nil), "cloud.api.pipelines.v1.ListResponse")
 	proto.RegisterType((*UpdatePipelineRequest)(nil), "cloud.api.pipelines.v1.UpdatePipelineRequest")
@@ -389,59 +487,62 @@ func init() {
 }
 
 var fileDescriptor_cd9c63b87d2e4a98 = []byte{
-	// 831 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x55, 0x4b, 0x6f, 0xeb, 0x44,
-	0x14, 0xd6, 0xa4, 0xa9, 0xdb, 0x4c, 0x4b, 0x81, 0x41, 0x0d, 0x21, 0x29, 0x26, 0xb8, 0x3c, 0x42,
-	0xd4, 0xda, 0x24, 0x95, 0x90, 0x5a, 0xf1, 0x10, 0x50, 0x54, 0x82, 0x40, 0x54, 0xae, 0xd8, 0xb0,
-	0x89, 0xfc, 0x98, 0xa6, 0x13, 0x39, 0x1e, 0xe3, 0x19, 0x07, 0x41, 0x29, 0x12, 0x74, 0xc1, 0x8e,
-	0x0d, 0xec, 0xf9, 0x2b, 0x2c, 0xbb, 0x44, 0xe2, 0x0f, 0x5c, 0xb5, 0x77, 0x71, 0x7f, 0xc6, 0x95,
-	0x67, 0xc6, 0x49, 0xda, 0xc6, 0x4d, 0x22, 0x75, 0x37, 0xaf, 0x73, 0xbe, 0xef, 0x7c, 0xe7, 0x3b,
-	0x36, 0xdc, 0x8e, 0x48, 0x84, 0x03, 0x12, 0x62, 0x66, 0x0d, 0x5b, 0x56, 0xb6, 0xe9, 0x32, 0x1c,
-	0x0f, 0x89, 0x87, 0xcd, 0x28, 0xa6, 0x9c, 0xa2, 0xb2, 0x17, 0xd0, 0xc4, 0x37, 0x9d, 0x88, 0x98,
-	0xa3, 0xe7, 0xe6, 0xb0, 0x55, 0xad, 0x4d, 0x0d, 0x96, 0x41, 0x55, 0xab, 0x47, 0xf8, 0x59, 0xe2,
-	0x9a, 0x1e, 0x1d, 0x58, 0x43, 0xe2, 0x63, 0xea, 0x51, 0x12, 0x5a, 0x22, 0xd3, 0xae, 0x13, 0x11,
-	0x2b, 0x8e, 0x3c, 0xeb, 0x0c, 0x3b, 0x01, 0x3f, 0x53, 0x01, 0xfb, 0x33, 0x02, 0xa2, 0x98, 0x9e,
-	0x92, 0x40, 0x61, 0xa9, 0xb5, 0x0a, 0x7d, 0x7f, 0x46, 0x68, 0x9f, 0xba, 0x22, 0xac, 0x4f, 0x5d,
-	0x15, 0x51, 0xeb, 0x51, 0xda, 0x0b, 0xb0, 0x25, 0x76, 0x6e, 0x72, 0x6a, 0xe1, 0x41, 0xc4, 0x7f,
-	0x52, 0x97, 0x5b, 0xea, 0x32, 0x0d, 0x75, 0xc2, 0x90, 0x72, 0x87, 0x13, 0x1a, 0x66, 0x60, 0xbb,
-	0x13, 0x60, 0x3d, 0xda, 0xa3, 0xe3, 0x1c, 0xe9, 0x4e, 0x6c, 0xc4, 0x4a, 0x3e, 0x37, 0x02, 0xb8,
-	0xf9, 0x79, 0x8c, 0x1d, 0x8e, 0x8f, 0x95, 0x3e, 0x36, 0xfe, 0x21, 0xc1, 0x8c, 0x23, 0x04, 0x8b,
-	0xa1, 0x33, 0xc0, 0x15, 0x50, 0x07, 0x8d, 0x92, 0x2d, 0xd6, 0xe8, 0x13, 0x08, 0x55, 0x69, 0x5d,
-	0xe2, 0x57, 0x0a, 0x75, 0xd0, 0xd8, 0x68, 0xd7, 0xcd, 0x09, 0xf9, 0xb3, 0xba, 0x87, 0x2d, 0xf3,
-	0x58, 0xae, 0x3b, 0xbe, 0x5d, 0x8a, 0xb2, 0xa5, 0xf1, 0x31, 0x7c, 0xf1, 0x2e, 0xce, 0x06, 0x2c,
-	0x10, 0x5f, 0xa1, 0x14, 0x88, 0x8f, 0x6a, 0xb0, 0xc4, 0x78, 0x8c, 0x9d, 0x41, 0x06, 0x51, 0xb2,
-	0x57, 0xe5, 0x41, 0xc7, 0x37, 0xbe, 0x81, 0xeb, 0x5f, 0x13, 0xc6, 0x6d, 0xcc, 0x22, 0x1a, 0x32,
-	0x8c, 0x3e, 0x82, 0xcb, 0x84, 0xe3, 0x01, 0xab, 0x80, 0xfa, 0x52, 0x63, 0xad, 0xfd, 0xae, 0x39,
-	0xdd, 0x0a, 0x66, 0x06, 0xaa, 0x48, 0xd9, 0x32, 0xca, 0xf8, 0x05, 0x6e, 0x7e, 0x17, 0xf9, 0x53,
-	0x8a, 0xbf, 0x4b, 0x2a, 0x13, 0xa3, 0x90, 0x2b, 0xc6, 0xd2, 0xe2, 0x62, 0xfc, 0x53, 0x80, 0xb5,
-	0xdb, 0xf0, 0x27, 0xa2, 0xce, 0x8c, 0xc4, 0x1b, 0x70, 0x6d, 0xe4, 0xf8, 0x11, 0x1b, 0x98, 0x1d,
-	0x75, 0x7c, 0xb4, 0x09, 0xb5, 0x3e, 0x75, 0xc7, 0x3a, 0x2d, 0xf7, 0xa9, 0xdb, 0xf1, 0xd1, 0xab,
-	0x70, 0x25, 0x61, 0x38, 0xce, 0x58, 0x95, 0x6c, 0x2d, 0xdd, 0x76, 0x7c, 0xf4, 0x36, 0xdc, 0xf0,
-	0x02, 0x82, 0x43, 0xde, 0x75, 0x7c, 0x3f, 0xc6, 0x8c, 0x55, 0x8a, 0xe2, 0xfe, 0x05, 0x79, 0xfa,
-	0xa9, 0x3c, 0xbc, 0xdd, 0x81, 0xe5, 0x3a, 0x68, 0x14, 0xc7, 0x1d, 0x48, 0x73, 0xa8, 0xcb, 0x2c,
-	0x87, 0x26, 0x73, 0xc8, 0xd3, 0x2c, 0xc7, 0x21, 0xd4, 0x18, 0x77, 0x78, 0xc2, 0x2a, 0x2b, 0x42,
-	0x98, 0x9d, 0x59, 0x9d, 0x91, 0xa5, 0x9f, 0x88, 0x18, 0x5b, 0xc5, 0xb6, 0x9f, 0xad, 0x8d, 0xfd,
-	0x72, 0x22, 0x67, 0x1e, 0x7d, 0x0b, 0xb5, 0x2f, 0xc5, 0x5c, 0xa2, 0xb2, 0x29, 0x07, 0xc1, 0xcc,
-	0x1c, 0x6e, 0x7e, 0x91, 0x4e, 0x49, 0xb5, 0x36, 0x81, 0x15, 0x47, 0x9e, 0x29, 0x9f, 0xcb, 0xd4,
-	0xc6, 0x4b, 0xbf, 0xff, 0xff, 0xf4, 0xaf, 0x02, 0x44, 0xab, 0x6a, 0xba, 0x7f, 0x46, 0xbf, 0x42,
-	0x4d, 0x4e, 0x00, 0xda, 0xcd, 0x23, 0x39, 0x75, 0x42, 0xaa, 0xf3, 0xba, 0xcd, 0xd8, 0x12, 0x98,
-	0x65, 0xe3, 0x65, 0x31, 0xb2, 0x13, 0xdf, 0x22, 0x76, 0x00, 0x9a, 0xa8, 0x0b, 0x8b, 0xa9, 0xa7,
-	0x73, 0xcb, 0x79, 0x2b, 0x0f, 0x66, 0x72, 0x12, 0x8c, 0xd7, 0x04, 0xc6, 0x2b, 0xe8, 0x3e, 0x06,
-	0x22, 0x50, 0x3b, 0xc4, 0x01, 0xe6, 0x18, 0xcd, 0x64, 0x9c, 0x95, 0x96, 0xc3, 0xc5, 0xd0, 0x05,
-	0x4a, 0xa5, 0x59, 0xbe, 0x87, 0x62, 0x9d, 0x13, 0xff, 0x02, 0x5d, 0x02, 0xa8, 0x49, 0x4b, 0xe7,
-	0x8b, 0x39, 0x75, 0xe2, 0xe6, 0x17, 0xf3, 0x4d, 0x41, 0xa1, 0x56, 0xcd, 0xa1, 0x90, 0x2a, 0xfa,
-	0x23, 0x5c, 0x3a, 0xc2, 0x7c, 0xfe, 0x6a, 0xe7, 0xc6, 0x56, 0xe5, 0xa3, 0xbc, 0xf2, 0x7f, 0x03,
-	0x70, 0x5d, 0x7a, 0x45, 0xda, 0x79, 0x7e, 0x0a, 0xaf, 0x4f, 0x3c, 0x4c, 0x7f, 0x07, 0xe9, 0x9b,
-	0xaf, 0xa8, 0x9b, 0x01, 0xbf, 0x27, 0x80, 0xb7, 0x0d, 0x7d, 0x3a, 0xb0, 0x25, 0x87, 0x4f, 0xd8,
-	0xe9, 0x12, 0xc0, 0x75, 0xd9, 0xee, 0x45, 0x39, 0xe4, 0x35, 0xbd, 0x2d, 0xc0, 0x77, 0x9a, 0xcd,
-	0x87, 0xc1, 0xad, 0xf3, 0xd1, 0x57, 0xe3, 0x02, 0xfd, 0x01, 0x60, 0xe9, 0x08, 0xf3, 0x47, 0x96,
-	0x41, 0x31, 0x41, 0x8b, 0x30, 0xb9, 0x80, 0x70, 0x44, 0x84, 0xcd, 0xcf, 0x44, 0x7f, 0x90, 0x09,
-	0x33, 0xde, 0x11, 0x54, 0xea, 0x68, 0x46, 0x47, 0xd0, 0x9f, 0x00, 0x96, 0xec, 0x24, 0x7c, 0x64,
-	0x21, 0xf6, 0x05, 0xfa, 0x9e, 0x61, 0xce, 0x2f, 0x84, 0x15, 0x27, 0x61, 0xea, 0x8f, 0xbf, 0x53,
-	0x8f, 0x3a, 0xa1, 0x87, 0x83, 0x47, 0xe6, 0xf4, 0xa1, 0xe0, 0xf4, 0x81, 0xd1, 0x5a, 0x80, 0x93,
-	0x27, 0x88, 0x1c, 0x80, 0xe6, 0x67, 0x95, 0xab, 0x6b, 0x1d, 0xfc, 0x77, 0xad, 0x83, 0x27, 0xd7,
-	0x3a, 0xf8, 0xf7, 0x46, 0x07, 0x57, 0x37, 0x3a, 0xf8, 0xbe, 0x30, 0x6c, 0xb9, 0x9a, 0xb0, 0xe3,
-	0xde, 0xf3, 0x00, 0x00, 0x00, 0xff, 0xff, 0x97, 0x0d, 0xab, 0xae, 0x0c, 0x0a, 0x00, 0x00,
+	// 868 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x95, 0xcf, 0x6e, 0xdc, 0x44,
+	0x1c, 0xc7, 0x35, 0x9b, 0xc4, 0xed, 0xfe, 0x92, 0xa6, 0x30, 0x25, 0x61, 0xd9, 0x6d, 0x37, 0xdb,
+	0x69, 0xab, 0x2c, 0x4b, 0x63, 0x93, 0x20, 0x21, 0xd1, 0x03, 0x08, 0x5a, 0x54, 0x16, 0x21, 0xa8,
+	0x1c, 0x71, 0xe1, 0x12, 0x79, 0xed, 0xe9, 0x66, 0x22, 0xaf, 0xc7, 0x78, 0xc6, 0x96, 0xa0, 0x04,
+	0x21, 0x7a, 0xe0, 0x01, 0x78, 0x00, 0x1e, 0x82, 0x17, 0xe0, 0xd8, 0x23, 0x12, 0x2f, 0x80, 0x52,
+	0x1e, 0x04, 0x79, 0x66, 0xbc, 0xf1, 0xb6, 0xeb, 0xf5, 0x46, 0xca, 0x6d, 0x66, 0x3c, 0xdf, 0xf9,
+	0x7c, 0x7f, 0x7f, 0x66, 0x0c, 0x77, 0x62, 0x16, 0xd3, 0x90, 0x45, 0x54, 0x38, 0xd9, 0xbe, 0x53,
+	0x4c, 0x8e, 0x04, 0x4d, 0x32, 0xe6, 0x53, 0x3b, 0x4e, 0xb8, 0xe4, 0x78, 0xdb, 0x0f, 0x79, 0x1a,
+	0xd8, 0x5e, 0xcc, 0xec, 0xe9, 0x76, 0x3b, 0xdb, 0x6f, 0x77, 0xe6, 0x8a, 0xb5, 0xa8, 0xed, 0x8c,
+	0x99, 0x3c, 0x4e, 0x47, 0xb6, 0xcf, 0x27, 0x4e, 0xc6, 0x02, 0xca, 0x7d, 0xce, 0x22, 0x47, 0x9d,
+	0xb4, 0xe7, 0xc5, 0xcc, 0x49, 0x62, 0xdf, 0x39, 0xa6, 0x5e, 0x28, 0x8f, 0x8d, 0xe0, 0xa3, 0x1a,
+	0x41, 0x9c, 0xf0, 0xa7, 0x2c, 0x34, 0x2c, 0x33, 0x36, 0xd2, 0xf7, 0x6b, 0xa4, 0x27, 0x7c, 0xa4,
+	0x64, 0x27, 0x7c, 0x64, 0x14, 0x9d, 0x31, 0xe7, 0xe3, 0x90, 0x3a, 0x6a, 0x36, 0x4a, 0x9f, 0x3a,
+	0x74, 0x12, 0xcb, 0x1f, 0xcc, 0xc7, 0x9b, 0xe6, 0x63, 0x2e, 0xf5, 0xa2, 0x88, 0x4b, 0x4f, 0x32,
+	0x1e, 0x15, 0xb0, 0xbd, 0x12, 0x6c, 0xcc, 0xc7, 0xfc, 0xfc, 0x8c, 0x7c, 0xa6, 0x26, 0x6a, 0xa4,
+	0xb7, 0x93, 0x10, 0xb6, 0x1e, 0x26, 0xd4, 0x93, 0xf4, 0x89, 0xc9, 0x8f, 0x4b, 0xbf, 0x4f, 0xa9,
+	0x90, 0x18, 0xc3, 0x6a, 0xe4, 0x4d, 0x68, 0x0b, 0xf5, 0x50, 0xbf, 0xe9, 0xaa, 0x31, 0xfe, 0x04,
+	0xc0, 0x84, 0x76, 0xc4, 0x82, 0x56, 0xa3, 0x87, 0xfa, 0x9b, 0x07, 0x3d, 0xbb, 0x94, 0xfe, 0x22,
+	0xee, 0x6c, 0xdf, 0x7e, 0xa2, 0xc7, 0xc3, 0xc0, 0x6d, 0xc6, 0xc5, 0x90, 0x1c, 0xc0, 0xf5, 0x57,
+	0x39, 0x3b, 0xb0, 0x3e, 0xad, 0x2b, 0x0b, 0x0c, 0x0e, 0x8a, 0xa5, 0x61, 0x40, 0x3e, 0x84, 0x1b,
+	0xda, 0xe1, 0xa1, 0x4c, 0xa8, 0x37, 0x59, 0x5a, 0x77, 0x1f, 0xae, 0xcd, 0x2a, 0x3a, 0xd0, 0x14,
+	0x6a, 0xe1, 0x7c, 0xff, 0x55, 0xbd, 0x30, 0x0c, 0xc8, 0xd7, 0xb0, 0xf1, 0x15, 0x13, 0xd2, 0xa5,
+	0x22, 0xe6, 0x91, 0xa0, 0xf8, 0x63, 0x58, 0x63, 0x92, 0x4e, 0x44, 0x0b, 0xf5, 0x56, 0xfa, 0xeb,
+	0x07, 0x7d, 0x7b, 0x7e, 0x93, 0xd9, 0x45, 0x38, 0xb9, 0x78, 0x28, 0xe9, 0xc4, 0xd5, 0x32, 0xf2,
+	0x13, 0x6c, 0x7d, 0x1b, 0x07, 0x73, 0xf2, 0xba, 0x09, 0x8d, 0x29, 0xbe, 0xc1, 0x82, 0x69, 0x9e,
+	0x1b, 0x95, 0x79, 0x5e, 0xb9, 0x78, 0x9e, 0xff, 0x68, 0x40, 0x67, 0x16, 0x7f, 0xb1, 0xe4, 0xe1,
+	0x2d, 0xb0, 0x4e, 0xf8, 0xa8, 0xa8, 0x72, 0xd3, 0x5d, 0x3b, 0xe1, 0xa3, 0x61, 0x80, 0xdf, 0x86,
+	0x2b, 0xa9, 0xa0, 0x49, 0xe1, 0xaa, 0xe9, 0x5a, 0xf9, 0x74, 0x18, 0xe0, 0x7b, 0xb0, 0xe9, 0x87,
+	0x8c, 0x46, 0xf2, 0xc8, 0x0b, 0x82, 0x84, 0x0a, 0xd1, 0x5a, 0x55, 0xdf, 0xaf, 0xe9, 0xd5, 0x4f,
+	0xf5, 0xe2, 0x6c, 0x09, 0xd6, 0x7a, 0xa8, 0xbf, 0x7a, 0x5e, 0x82, 0xfc, 0x0c, 0xf3, 0xb1, 0x38,
+	0xc3, 0xd2, 0x67, 0xe8, 0xd5, 0xe2, 0x8c, 0x47, 0x60, 0x09, 0xe9, 0xc9, 0x54, 0xb4, 0xae, 0xa8,
+	0xc4, 0xdc, 0xaf, 0x2b, 0x8d, 0x0e, 0xfd, 0x50, 0x69, 0x5c, 0xa3, 0x3d, 0xf8, 0x73, 0xfd, 0xbc,
+	0x15, 0x0f, 0xf5, 0x73, 0x82, 0xbf, 0x01, 0xeb, 0x0b, 0x75, 0xe5, 0xf1, 0xb6, 0xad, 0xef, 0x98,
+	0x5d, 0x5c, 0x1e, 0xfb, 0xf3, 0xfc, 0x02, 0xb6, 0x3b, 0x25, 0x56, 0x12, 0xfb, 0xb6, 0xde, 0xae,
+	0x8f, 0x26, 0x6f, 0xfc, 0xfa, 0xcf, 0x7f, 0xbf, 0x37, 0x00, 0x5f, 0x35, 0x0f, 0xc7, 0x8f, 0xf8,
+	0x67, 0xb0, 0x74, 0xeb, 0xe2, 0xbd, 0x2a, 0x93, 0x73, 0x2f, 0x5f, 0x7b, 0xb7, 0x2e, 0x26, 0x53,
+	0x75, 0x72, 0x53, 0x31, 0xb7, 0xc9, 0x9b, 0xea, 0x35, 0x28, 0x3d, 0x73, 0xe2, 0x01, 0x1a, 0xe0,
+	0x23, 0x58, 0xcd, 0xfb, 0xb2, 0x32, 0x9c, 0xbb, 0x55, 0x98, 0xf2, 0x55, 0x20, 0xef, 0x28, 0xc6,
+	0x0d, 0xfc, 0x3a, 0x03, 0x27, 0x60, 0x3d, 0xa2, 0x21, 0x95, 0x14, 0xd7, 0x3a, 0x2e, 0x42, 0xab,
+	0xf0, 0x42, 0x76, 0x15, 0xe5, 0xf6, 0x60, 0xe7, 0x35, 0x8a, 0xf3, 0xac, 0xd4, 0xab, 0xa7, 0xf8,
+	0x39, 0x02, 0x4b, 0xf7, 0x76, 0x75, 0x56, 0xe7, 0x5e, 0xbd, 0xe5, 0xb3, 0x7a, 0x5b, 0x79, 0xe9,
+	0xb4, 0xb7, 0xe7, 0x78, 0x61, 0xc1, 0x69, 0x9e, 0xda, 0x5f, 0x10, 0xac, 0x3c, 0xa6, 0x72, 0xf9,
+	0xb8, 0x97, 0x86, 0x9b, 0x44, 0xe0, 0xda, 0x44, 0xfc, 0x86, 0x60, 0x3d, 0x2f, 0x94, 0xee, 0x6f,
+	0xb1, 0xbc, 0x95, 0x6e, 0x69, 0x63, 0xfe, 0xef, 0xc9, 0xf7, 0x7c, 0xc9, 0x47, 0xc6, 0x80, 0x20,
+	0x8e, 0x72, 0xf0, 0x2e, 0xde, 0xad, 0x71, 0xe0, 0x08, 0x43, 0xce, 0x60, 0xa3, 0xfc, 0x44, 0xe3,
+	0xf7, 0x16, 0x77, 0xfb, 0xcc, 0x5b, 0xd4, 0xbe, 0xb5, 0xd0, 0x0d, 0x69, 0x2b, 0x33, 0x6f, 0x91,
+	0xeb, 0x85, 0x19, 0x03, 0xcd, 0x8b, 0x90, 0xc0, 0x86, 0x6e, 0x3f, 0xc3, 0xbd, 0x57, 0xc5, 0x9d,
+	0x25, 0x56, 0xb5, 0xe0, 0x1d, 0x85, 0xba, 0x35, 0xe8, 0xbc, 0x82, 0x72, 0x9e, 0x4d, 0x1f, 0xad,
+	0x53, 0x9c, 0x41, 0xf3, 0x31, 0x95, 0x17, 0x03, 0xd6, 0x84, 0x68, 0xb8, 0x78, 0x21, 0xf7, 0x14,
+	0x9a, 0x6e, 0x1a, 0x5d, 0x2a, 0x77, 0xa0, 0xb8, 0x77, 0xc9, 0xce, 0x02, 0xae, 0x93, 0xa4, 0x51,
+	0x9e, 0xea, 0xe7, 0x08, 0x36, 0x1e, 0x7a, 0x91, 0x4f, 0xc3, 0x4b, 0xb5, 0xb0, 0xa7, 0x2c, 0xec,
+	0x12, 0xb2, 0xc8, 0x82, 0xaf, 0xb8, 0x0f, 0xd0, 0xe0, 0xb3, 0xd6, 0x8b, 0xb3, 0x2e, 0xfa, 0xfb,
+	0xac, 0x8b, 0xfe, 0x3d, 0xeb, 0xa2, 0xbf, 0x5e, 0x76, 0xd1, 0x8b, 0x97, 0x5d, 0xf4, 0x5d, 0x23,
+	0xdb, 0x1f, 0x59, 0xaa, 0x96, 0x1f, 0xfc, 0x1f, 0x00, 0x00, 0xff, 0xff, 0x70, 0x80, 0x5e, 0xca,
+	0x32, 0x0a, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -462,12 +563,12 @@ type PipelineServiceClient interface {
 	Delete(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*types.Empty, error)
 	Update(ctx context.Context, in *UpdatePipelineRequest, opts ...grpc.CallOption) (*PipelineProfile, error)
 	Get(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*PipelineProfile, error)
-	CreateStream(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*v11.JobProfile, error)
-	DeleteStream(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*types.Empty, error)
-	GetStream(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*v11.JobProfile, error)
-	GetStreams(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*v11.JobProfiles, error)
-	RunStream(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*v11.JobProfile, error)
-	CancelStream(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*v11.JobProfile, error)
+	ListStreams(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*v11.JobProfiles, error)
+	CreateStream(ctx context.Context, in *CreateStreamRequest, opts ...grpc.CallOption) (*v11.JobProfile, error)
+	DeleteStream(ctx context.Context, in *StreamRequest, opts ...grpc.CallOption) (*types.Empty, error)
+	GetStream(ctx context.Context, in *StreamRequest, opts ...grpc.CallOption) (*v11.JobProfile, error)
+	RunStream(ctx context.Context, in *StreamRequest, opts ...grpc.CallOption) (*v11.JobProfile, error)
+	CancelStream(ctx context.Context, in *StreamRequest, opts ...grpc.CallOption) (*v11.JobProfile, error)
 }
 
 type pipelineServiceClient struct {
@@ -532,7 +633,16 @@ func (c *pipelineServiceClient) Get(ctx context.Context, in *PipelineRequest, op
 	return out, nil
 }
 
-func (c *pipelineServiceClient) CreateStream(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*v11.JobProfile, error) {
+func (c *pipelineServiceClient) ListStreams(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*v11.JobProfiles, error) {
+	out := new(v11.JobProfiles)
+	err := c.cc.Invoke(ctx, "/cloud.api.pipelines.v1.PipelineService/ListStreams", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *pipelineServiceClient) CreateStream(ctx context.Context, in *CreateStreamRequest, opts ...grpc.CallOption) (*v11.JobProfile, error) {
 	out := new(v11.JobProfile)
 	err := c.cc.Invoke(ctx, "/cloud.api.pipelines.v1.PipelineService/CreateStream", in, out, opts...)
 	if err != nil {
@@ -541,7 +651,7 @@ func (c *pipelineServiceClient) CreateStream(ctx context.Context, in *PipelineRe
 	return out, nil
 }
 
-func (c *pipelineServiceClient) DeleteStream(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*types.Empty, error) {
+func (c *pipelineServiceClient) DeleteStream(ctx context.Context, in *StreamRequest, opts ...grpc.CallOption) (*types.Empty, error) {
 	out := new(types.Empty)
 	err := c.cc.Invoke(ctx, "/cloud.api.pipelines.v1.PipelineService/DeleteStream", in, out, opts...)
 	if err != nil {
@@ -550,7 +660,7 @@ func (c *pipelineServiceClient) DeleteStream(ctx context.Context, in *PipelineRe
 	return out, nil
 }
 
-func (c *pipelineServiceClient) GetStream(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*v11.JobProfile, error) {
+func (c *pipelineServiceClient) GetStream(ctx context.Context, in *StreamRequest, opts ...grpc.CallOption) (*v11.JobProfile, error) {
 	out := new(v11.JobProfile)
 	err := c.cc.Invoke(ctx, "/cloud.api.pipelines.v1.PipelineService/GetStream", in, out, opts...)
 	if err != nil {
@@ -559,16 +669,7 @@ func (c *pipelineServiceClient) GetStream(ctx context.Context, in *PipelineReque
 	return out, nil
 }
 
-func (c *pipelineServiceClient) GetStreams(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*v11.JobProfiles, error) {
-	out := new(v11.JobProfiles)
-	err := c.cc.Invoke(ctx, "/cloud.api.pipelines.v1.PipelineService/GetStreams", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *pipelineServiceClient) RunStream(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*v11.JobProfile, error) {
+func (c *pipelineServiceClient) RunStream(ctx context.Context, in *StreamRequest, opts ...grpc.CallOption) (*v11.JobProfile, error) {
 	out := new(v11.JobProfile)
 	err := c.cc.Invoke(ctx, "/cloud.api.pipelines.v1.PipelineService/RunStream", in, out, opts...)
 	if err != nil {
@@ -577,7 +678,7 @@ func (c *pipelineServiceClient) RunStream(ctx context.Context, in *PipelineReque
 	return out, nil
 }
 
-func (c *pipelineServiceClient) CancelStream(ctx context.Context, in *PipelineRequest, opts ...grpc.CallOption) (*v11.JobProfile, error) {
+func (c *pipelineServiceClient) CancelStream(ctx context.Context, in *StreamRequest, opts ...grpc.CallOption) (*v11.JobProfile, error) {
 	out := new(v11.JobProfile)
 	err := c.cc.Invoke(ctx, "/cloud.api.pipelines.v1.PipelineService/CancelStream", in, out, opts...)
 	if err != nil {
@@ -594,12 +695,12 @@ type PipelineServiceServer interface {
 	Delete(context.Context, *PipelineRequest) (*types.Empty, error)
 	Update(context.Context, *UpdatePipelineRequest) (*PipelineProfile, error)
 	Get(context.Context, *PipelineRequest) (*PipelineProfile, error)
-	CreateStream(context.Context, *PipelineRequest) (*v11.JobProfile, error)
-	DeleteStream(context.Context, *PipelineRequest) (*types.Empty, error)
-	GetStream(context.Context, *PipelineRequest) (*v11.JobProfile, error)
-	GetStreams(context.Context, *PipelineRequest) (*v11.JobProfiles, error)
-	RunStream(context.Context, *PipelineRequest) (*v11.JobProfile, error)
-	CancelStream(context.Context, *PipelineRequest) (*v11.JobProfile, error)
+	ListStreams(context.Context, *PipelineRequest) (*v11.JobProfiles, error)
+	CreateStream(context.Context, *CreateStreamRequest) (*v11.JobProfile, error)
+	DeleteStream(context.Context, *StreamRequest) (*types.Empty, error)
+	GetStream(context.Context, *StreamRequest) (*v11.JobProfile, error)
+	RunStream(context.Context, *StreamRequest) (*v11.JobProfile, error)
+	CancelStream(context.Context, *StreamRequest) (*v11.JobProfile, error)
 }
 
 // UnimplementedPipelineServiceServer can be embedded to have forward compatible implementations.
@@ -624,22 +725,22 @@ func (*UnimplementedPipelineServiceServer) Update(ctx context.Context, req *Upda
 func (*UnimplementedPipelineServiceServer) Get(ctx context.Context, req *PipelineRequest) (*PipelineProfile, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (*UnimplementedPipelineServiceServer) CreateStream(ctx context.Context, req *PipelineRequest) (*v11.JobProfile, error) {
+func (*UnimplementedPipelineServiceServer) ListStreams(ctx context.Context, req *PipelineRequest) (*v11.JobProfiles, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListStreams not implemented")
+}
+func (*UnimplementedPipelineServiceServer) CreateStream(ctx context.Context, req *CreateStreamRequest) (*v11.JobProfile, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateStream not implemented")
 }
-func (*UnimplementedPipelineServiceServer) DeleteStream(ctx context.Context, req *PipelineRequest) (*types.Empty, error) {
+func (*UnimplementedPipelineServiceServer) DeleteStream(ctx context.Context, req *StreamRequest) (*types.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteStream not implemented")
 }
-func (*UnimplementedPipelineServiceServer) GetStream(ctx context.Context, req *PipelineRequest) (*v11.JobProfile, error) {
+func (*UnimplementedPipelineServiceServer) GetStream(ctx context.Context, req *StreamRequest) (*v11.JobProfile, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStream not implemented")
 }
-func (*UnimplementedPipelineServiceServer) GetStreams(ctx context.Context, req *PipelineRequest) (*v11.JobProfiles, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetStreams not implemented")
-}
-func (*UnimplementedPipelineServiceServer) RunStream(ctx context.Context, req *PipelineRequest) (*v11.JobProfile, error) {
+func (*UnimplementedPipelineServiceServer) RunStream(ctx context.Context, req *StreamRequest) (*v11.JobProfile, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RunStream not implemented")
 }
-func (*UnimplementedPipelineServiceServer) CancelStream(ctx context.Context, req *PipelineRequest) (*v11.JobProfile, error) {
+func (*UnimplementedPipelineServiceServer) CancelStream(ctx context.Context, req *StreamRequest) (*v11.JobProfile, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CancelStream not implemented")
 }
 
@@ -755,8 +856,26 @@ func _PipelineService_Get_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PipelineService_CreateStream_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PipelineService_ListStreams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PipelineRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PipelineServiceServer).ListStreams(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cloud.api.pipelines.v1.PipelineService/ListStreams",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PipelineServiceServer).ListStreams(ctx, req.(*PipelineRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PipelineService_CreateStream_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateStreamRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -768,13 +887,13 @@ func _PipelineService_CreateStream_Handler(srv interface{}, ctx context.Context,
 		FullMethod: "/cloud.api.pipelines.v1.PipelineService/CreateStream",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PipelineServiceServer).CreateStream(ctx, req.(*PipelineRequest))
+		return srv.(PipelineServiceServer).CreateStream(ctx, req.(*CreateStreamRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _PipelineService_DeleteStream_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PipelineRequest)
+	in := new(StreamRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -786,13 +905,13 @@ func _PipelineService_DeleteStream_Handler(srv interface{}, ctx context.Context,
 		FullMethod: "/cloud.api.pipelines.v1.PipelineService/DeleteStream",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PipelineServiceServer).DeleteStream(ctx, req.(*PipelineRequest))
+		return srv.(PipelineServiceServer).DeleteStream(ctx, req.(*StreamRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _PipelineService_GetStream_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PipelineRequest)
+	in := new(StreamRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -804,31 +923,13 @@ func _PipelineService_GetStream_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/cloud.api.pipelines.v1.PipelineService/GetStream",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PipelineServiceServer).GetStream(ctx, req.(*PipelineRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PipelineService_GetStreams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PipelineRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PipelineServiceServer).GetStreams(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/cloud.api.pipelines.v1.PipelineService/GetStreams",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PipelineServiceServer).GetStreams(ctx, req.(*PipelineRequest))
+		return srv.(PipelineServiceServer).GetStream(ctx, req.(*StreamRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _PipelineService_RunStream_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PipelineRequest)
+	in := new(StreamRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -840,13 +941,13 @@ func _PipelineService_RunStream_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/cloud.api.pipelines.v1.PipelineService/RunStream",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PipelineServiceServer).RunStream(ctx, req.(*PipelineRequest))
+		return srv.(PipelineServiceServer).RunStream(ctx, req.(*StreamRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _PipelineService_CancelStream_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PipelineRequest)
+	in := new(StreamRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -858,7 +959,7 @@ func _PipelineService_CancelStream_Handler(srv interface{}, ctx context.Context,
 		FullMethod: "/cloud.api.pipelines.v1.PipelineService/CancelStream",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PipelineServiceServer).CancelStream(ctx, req.(*PipelineRequest))
+		return srv.(PipelineServiceServer).CancelStream(ctx, req.(*StreamRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -892,6 +993,10 @@ var _PipelineService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _PipelineService_Get_Handler,
 		},
 		{
+			MethodName: "ListStreams",
+			Handler:    _PipelineService_ListStreams_Handler,
+		},
+		{
 			MethodName: "CreateStream",
 			Handler:    _PipelineService_CreateStream_Handler,
 		},
@@ -902,10 +1007,6 @@ var _PipelineService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetStream",
 			Handler:    _PipelineService_GetStream_Handler,
-		},
-		{
-			MethodName: "GetStreams",
-			Handler:    _PipelineService_GetStreams_Handler,
 		},
 		{
 			MethodName: "RunStream",
@@ -967,14 +1068,62 @@ func (m *PipelineRequest) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Id) > 0 {
+	if len(m.PipelineId) > 0 {
 		dAtA[i] = 0xa
 		i++
-		i = encodeVarintPipelineService(dAtA, i, uint64(len(m.Id)))
-		i += copy(dAtA[i:], m.Id)
+		i = encodeVarintPipelineService(dAtA, i, uint64(len(m.PipelineId)))
+		i += copy(dAtA[i:], m.PipelineId)
 	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return i, nil
+}
+
+func (m *CreateStreamRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CreateStreamRequest) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.PipelineId) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintPipelineService(dAtA, i, uint64(len(m.PipelineId)))
+		i += copy(dAtA[i:], m.PipelineId)
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return i, nil
+}
+
+func (m *StreamRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *StreamRequest) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
 	if len(m.StreamId) > 0 {
-		dAtA[i] = 0x12
+		dAtA[i] = 0xa
 		i++
 		i = encodeVarintPipelineService(dAtA, i, uint64(len(m.StreamId)))
 		i += copy(dAtA[i:], m.StreamId)
@@ -1151,10 +1300,38 @@ func (m *PipelineRequest) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Id)
+	l = len(m.PipelineId)
 	if l > 0 {
 		n += 1 + l + sovPipelineService(uint64(l))
 	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *CreateStreamRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.PipelineId)
+	if l > 0 {
+		n += 1 + l + sovPipelineService(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *StreamRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
 	l = len(m.StreamId)
 	if l > 0 {
 		n += 1 + l + sovPipelineService(uint64(l))
@@ -1386,7 +1563,7 @@ func (m *PipelineRequest) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field PipelineId", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1414,9 +1591,149 @@ func (m *PipelineRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Id = string(dAtA[iNdEx:postIndex])
+			m.PipelineId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 2:
+		default:
+			iNdEx = preIndex
+			skippy, err := skipPipelineService(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthPipelineService
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthPipelineService
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CreateStreamRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowPipelineService
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CreateStreamRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CreateStreamRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PipelineId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowPipelineService
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthPipelineService
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthPipelineService
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PipelineId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipPipelineService(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthPipelineService
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthPipelineService
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *StreamRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowPipelineService
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: StreamRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: StreamRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field StreamId", wireType)
 			}
@@ -1531,7 +1848,7 @@ func (m *ListResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Items = append(m.Items, &PipelineProfile{})
+			m.Items = append(m.Items, &PipelineListItem{})
 			if err := m.Items[len(m.Items)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
