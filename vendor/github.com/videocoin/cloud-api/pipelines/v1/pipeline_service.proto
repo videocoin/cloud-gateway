@@ -25,7 +25,7 @@ service PipelineService {
         };
     }
 
-    rpc Create(CreatePipelineRequest) returns (PipelineProfile) {
+    rpc Create(CreatePipelineRequest) returns (PipelineListItem) {
         option (google.api.http) = {
             post: "/api/v1/pipelines",
             body: "*"
