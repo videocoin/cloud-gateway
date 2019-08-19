@@ -3,7 +3,7 @@ GOARCH?=amd64
 
 NAME=gateway
 GCP_PROJECT=videocoin-network
-VERSION=$$(git describe --abbrev=0)-$$(git rev-parse --short HEAD)
+VERSION=$$(git describe --abbrev=0)-$$(git rev-parse --abbrev-ref HEAD)-$$(git rev-parse --short HEAD)
 
 .PHONY: deploy
 
