@@ -99,17 +99,16 @@ github.com/sirupsen/logrus
 github.com/valyala/bytebufferpool
 # github.com/valyala/fasttemplate v1.0.1
 github.com/valyala/fasttemplate
-# github.com/videocoin/cloud-api v0.1.175 => ../cloud-api
+# github.com/videocoin/cloud-api v0.1.178 => ../cloud-api
 github.com/videocoin/cloud-api/accounts/v1
 github.com/videocoin/cloud-api/manager/v1
 github.com/videocoin/cloud-api/pipelines/v1
 github.com/videocoin/cloud-api/users/v1
-github.com/videocoin/cloud-api/verifier/v1
 github.com/videocoin/cloud-api/rpc
 github.com/videocoin/cloud-api/jobs/v1
 github.com/videocoin/cloud-api/profiles/v1
 github.com/videocoin/cloud-api/transcoder/v1
-# github.com/videocoin/cloud-pkg v0.0.3-0.20190712213107-e13988c093de
+# github.com/videocoin/cloud-pkg v0.0.5
 github.com/videocoin/cloud-pkg/logger
 github.com/videocoin/cloud-pkg/grpcutil
 # golang.org/x/crypto v0.0.0-20190325154230-a5d413f7728c
