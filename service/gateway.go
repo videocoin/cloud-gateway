@@ -14,7 +14,6 @@ import (
 	managerv1 "github.com/videocoin/cloud-api/manager/v1"
 	pipelinesv1 "github.com/videocoin/cloud-api/pipelines/v1"
 	usersv1 "github.com/videocoin/cloud-api/users/v1"
-	verifierv1 "github.com/videocoin/cloud-api/verifier/v1"
 	"github.com/videocoin/cloud-pkg/grpcutil"
 	"google.golang.org/grpc/metadata"
 )
@@ -101,11 +100,6 @@ func NewRpcGateway(cfg *Config) (*RpcGateway, error) {
 	}
 
 	err = managerv1.RegisterManagerServiceHandlerFromEndpoint(ctx, mux, gw.cfg.ManagerRpcAddr, opts)
-	if err != nil {
-		return nil, err
-	}
-
-	err = verifierv1.RegisterVerifierServiceHandlerFromEndpoint(ctx, mux, gw.cfg.VerifierRpcAddr, opts)
 	if err != nil {
 		return nil, err
 	}
