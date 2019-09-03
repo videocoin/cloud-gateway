@@ -31,26 +31,11 @@ spec:
                 configMapKeyRef:
                   name: {{ .Chart.Name }}
                   key: usersRpcAddr
-            - name: GATEWAY_ACCOUNTSRPCADDR
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Chart.Name }}
-                  key: accountsRpcAddr
             - name: GATEWAY_PIPELINESRPCADDR
               valueFrom:
                 configMapKeyRef:
                   name: {{ .Chart.Name }}
                   key: pipelinesRpcAddr
-            - name: GATEWAY_MANAGERRPCADDR
-              valueFrom:
-                configMapKeyRef:
-                  key: managerRpcAddr
-                  name: {{ .Chart.Name }}
-            - name: GATEWAY_VERIFIERRPCADDR
-              valueFrom:
-                configMapKeyRef:
-                  key: verifierRpcAddr
-                  name: {{ .Chart.Name }}
             - name: SENTRY_DSN
               valueFrom:
                 secretKeyRef:
