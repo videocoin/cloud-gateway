@@ -10,8 +10,6 @@ import (
 	"github.com/labstack/echo/middleware"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
-	accountsv1 "github.com/videocoin/cloud-api/accounts/v1"
-	managerv1 "github.com/videocoin/cloud-api/manager/v1"
 	pipelinesv1 "github.com/videocoin/cloud-api/pipelines/v1"
 	usersv1 "github.com/videocoin/cloud-api/users/v1"
 	"github.com/videocoin/cloud-pkg/grpcutil"
@@ -84,22 +82,12 @@ func NewRpcGateway(cfg *Config) (*RpcGateway, error) {
 	)
 	opts := grpcutil.DefaultClientDialOpts(cfg.Logger)
 
-	err := accountsv1.RegisterAccountServiceHandlerFromEndpoint(ctx, mux, gw.cfg.AccountsRpcAddr, opts)
-	if err != nil {
-		return nil, err
-	}
-
-	err = usersv1.RegisterUserServiceHandlerFromEndpoint(ctx, mux, gw.cfg.UsersRpcAddr, opts)
+	err := usersv1.RegisterUserServiceHandlerFromEndpoint(ctx, mux, gw.cfg.UsersRpcAddr, opts)
 	if err != nil {
 		return nil, err
 	}
 
 	err = pipelinesv1.RegisterPipelineServiceHandlerFromEndpoint(ctx, mux, gw.cfg.PipelinesRpcAddr, opts)
-	if err != nil {
-		return nil, err
-	}
-
-	err = managerv1.RegisterManagerServiceHandlerFromEndpoint(ctx, mux, gw.cfg.ManagerRpcAddr, opts)
 	if err != nil {
 		return nil, err
 	}
