@@ -10,7 +10,7 @@ import (
 	"github.com/labstack/echo/middleware"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
-	pipelinesv1 "github.com/videocoin/cloud-api/pipelines/v1"
+	streamsv1 "github.com/videocoin/cloud-api/streams/v1"
 	usersv1 "github.com/videocoin/cloud-api/users/v1"
 	"github.com/videocoin/cloud-pkg/grpcutil"
 	"google.golang.org/grpc/metadata"
@@ -87,7 +87,7 @@ func NewRpcGateway(cfg *Config) (*RpcGateway, error) {
 		return nil, err
 	}
 
-	err = pipelinesv1.RegisterPipelineServiceHandlerFromEndpoint(ctx, mux, gw.cfg.PipelinesRpcAddr, opts)
+	err = streamsv1.RegisterStreamServiceHandlerFromEndpoint(ctx, mux, gw.cfg.StreamsRpcAddr, opts)
 	if err != nil {
 		return nil, err
 	}

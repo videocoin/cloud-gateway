@@ -49,16 +49,16 @@ function has_helm {
 function get_vars() {
     log_info "Getting variables..."
     readonly KUBE_CONTEXT=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/common/kube_context`
-    readonly PIPELINES_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/pipelinesRpcAddr`
     readonly USERS_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/usersRpcAddr`
+    readonly STREAMS_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/streamsRpcAddr`
     readonly SENTRY_DSN=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/secrets/sentryDsn`
 }
 
 function get_vars_ci() {
     log_info "Getting ci variables..."
     readonly KUBE_CONTEXT=`curl --silent --user ${CONSUL_AUTH} http://consul.${ENV}.videocoin.network/v1/kv/config/${ENV}/common/kube_context?raw`
-    readonly PIPELINES_RPC_ADDR=`curl --silent --user ${CONSUL_AUTH} http://consul.${ENV}.videocoin.network/v1/kv/config/${ENV}/services/${CHART_NAME}/vars/pipelinesRpcAddr?raw `
     readonly USERS_RPC_ADDR=`curl --silent --user ${CONSUL_AUTH} http://consul.${ENV}.videocoin.network/v1/kv/config/${ENV}/services/${CHART_NAME}/vars/usersRpcAddr?raw `
+    readonly STREAMS_RPC_ADDR=`curl --silent --user ${CONSUL_AUTH} http://consul.${ENV}.videocoin.network/v1/kv/config/${ENV}/services/${CHART_NAME}/vars/streamsRpcAddr?raw `
     readonly SENTRY_DSN=`curl --silent --user ${CONSUL_AUTH} http://consul.${ENV}.videocoin.network/v1/kv/config/${ENV}/services/${CHART_NAME}/secrets/sentryDsn?raw`
 }
 
@@ -70,7 +70,7 @@ function deploy() {
         --set image.tag="${VERSION}" \
         --set config.usersRpcAddr="${USERS_RPC_ADDR}" \
         --set config.accountsRpcAddr="${ACCOUNTS_RPC_ADDR}" \
-        --set config.pipelinesRpcAddr="${PIPELINES_RPC_ADDR}" \
+        --set config.streamsRpcAddr="${STREAMS_RPC_ADDR}" \
         --set config.managerRpcAddr="${MANAGER_RPC_ADDR}" \
         --set config.verifierRpcAddr="${VERIFIER_RPC_ADDR}" \
         --set secrets.sentryDsn="${SENTRY_DSN}" \

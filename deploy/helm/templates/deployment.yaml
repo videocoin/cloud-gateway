@@ -31,11 +31,11 @@ spec:
                 configMapKeyRef:
                   name: {{ .Chart.Name }}
                   key: usersRpcAddr
-            - name: GATEWAY_PIPELINESRPCADDR
+            - name: GATEWAY_STREAMSRPCADDR
               valueFrom:
                 configMapKeyRef:
                   name: {{ .Chart.Name }}
-                  key: pipelinesRpcAddr
+                  key: streamsRpcAddr
             - name: SENTRY_DSN
               valueFrom:
                 secretKeyRef:
