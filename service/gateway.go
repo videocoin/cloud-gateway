@@ -59,6 +59,7 @@ type RpcGateway struct {
 func NewRpcGateway(cfg *Config) (*RpcGateway, error) {
 	e := echo.New()
 	e.HideBanner = true
+	e.HidePort = true
 
 	gw := &RpcGateway{
 		cfg:    cfg,
