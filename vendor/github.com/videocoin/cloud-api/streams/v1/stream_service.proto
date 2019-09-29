@@ -6,7 +6,6 @@ import "github.com/videocoin/cloud-api/rpc/health.proto";
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
-import "github.com/videocoin/cloud-api/profiles/v1/profiles.proto";
 
 import "streams/v1/stream.proto";
 
@@ -56,6 +55,8 @@ service StreamService {
       };
     };
 
+    rpc UpdateStatus(UpdateStreamRequest) returns (google.protobuf.Empty) {};
+
     rpc Run(StreamRequest) returns (StreamProfile) {
       option (google.api.http) = {
         post: "/api/v1/streams/{id}/run"
@@ -70,8 +71,13 @@ service StreamService {
 }
 
 message CreateStreamRequest {
-    string name = 1;
-    cloud.api.profiles.v1.ProfileId profile_id = 2;
+    string name = 1 [
+      (gogoproto.moretags) = "validate:\"required\""
+    ];
+
+    string profile_id = 2 [
+      (gogoproto.moretags) = "validate:\"required\""
+    ];
 }
 
 message StreamRequest {
