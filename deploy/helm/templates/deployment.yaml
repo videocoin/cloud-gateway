@@ -36,6 +36,11 @@ spec:
                 configMapKeyRef:
                   name: {{ .Chart.Name }}
                   key: streamsRpcAddr
+            - name: GATEWAY_PROFILESRPCADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Chart.Name }}
+                  key: profilesRpcAddr
             - name: SENTRY_DSN
               valueFrom:
                 secretKeyRef:
