@@ -24,7 +24,12 @@ service ProfilesService {
         };
     }
 
-    rpc List(google.protobuf.Empty) returns (Profiles) {}
+    rpc List(google.protobuf.Empty) returns (Profiles)  {
+        option (google.api.http) = {
+            get: "/api/v1/profiles"
+        };
+    }
+
     rpc Render(RenderRequest) returns (RenderResponse) {}
 }
 
