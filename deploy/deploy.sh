@@ -52,16 +52,8 @@ function get_vars() {
     readonly USERS_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/usersRpcAddr`
     readonly STREAMS_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/streamsRpcAddr`
     readonly PROFILES_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/profilesRpcAddr`
+    readonly MINERS_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/minersRpcAddr`
     readonly SENTRY_DSN=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/secrets/sentryDsn`
-}
-
-function get_vars_ci() {
-    log_info "Getting ci variables..."
-    readonly KUBE_CONTEXT=`curl --silent --user ${CONSUL_AUTH} http://consul.${ENV}.videocoin.network/v1/kv/config/${ENV}/common/kube_context?raw`
-    readonly USERS_RPC_ADDR=`curl --silent --user ${CONSUL_AUTH} http://consul.${ENV}.videocoin.network/v1/kv/config/${ENV}/services/${CHART_NAME}/vars/usersRpcAddr?raw `
-    readonly STREAMS_RPC_ADDR=`curl --silent --user ${CONSUL_AUTH} http://consul.${ENV}.videocoin.network/v1/kv/config/${ENV}/services/${CHART_NAME}/vars/streamsRpcAddr?raw `
-    readonly PROFILES_RPC_ADDR=`curl --silent --user ${CONSUL_AUTH} http://consul.${ENV}.videocoin.network/v1/kv/config/${ENV}/services/${CHART_NAME}/vars/profilesRpcAddr?raw `
-    readonly SENTRY_DSN=`curl --silent --user ${CONSUL_AUTH} http://consul.${ENV}.videocoin.network/v1/kv/config/${ENV}/services/${CHART_NAME}/secrets/sentryDsn?raw`
 }
 
 function deploy() {
@@ -74,6 +66,7 @@ function deploy() {
         --set config.accountsRpcAddr="${ACCOUNTS_RPC_ADDR}" \
         --set config.streamsRpcAddr="${STREAMS_RPC_ADDR}" \
         --set config.profilesRpcAddr="${PROFILES_RPC_ADDR}" \
+        --set config.minersRpcAddr="${MINERS_RPC_ADDR}" \
         --set secrets.sentryDsn="${SENTRY_DSN}" \
         --wait ${CHART_NAME} ${CHART_DIR}
 }
@@ -93,12 +86,7 @@ if ! $(has_helm); then
     exit 1
 fi
 
-if [ "${CI_ENABLED}" = "1" ]; then
-  get_vars_ci
-else
-  get_vars
-fi
-
+get_vars
 update_deps
 deploy
 
