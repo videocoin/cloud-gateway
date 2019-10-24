@@ -10,6 +10,7 @@ type Config struct {
 	UsersRpcAddr    string `default:"0.0.0.0:5000"`
 	StreamsRpcAddr  string `default:"0.0.0.0:5002"`
 	ProfilesRpcAddr string `default:"0.0.0.0:5004"`
+	MinersRpcAddr   string `default:"0.0.0.0:5011"`
 
 	Logger *logrus.Entry `envconfig:"-"`
 }

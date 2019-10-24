@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	github.com/gogo/gateway v1.1.0
-	github.com/grpc-ecosystem/grpc-gateway v1.9.3
+	github.com/grpc-ecosystem/grpc-gateway v1.11.3
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/prometheus/client_golang v0.9.4
