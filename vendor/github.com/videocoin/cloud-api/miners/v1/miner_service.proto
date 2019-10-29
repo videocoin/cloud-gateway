@@ -2,12 +2,13 @@ syntax = "proto3";
 
 package cloud.api.miners.v1;
 
+import "miners/v1/miner.proto";
+import "github.com/videocoin/cloud-api/rpc/health.proto";
+
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
-
-import "github.com/videocoin/cloud-api/rpc/health.proto";
-import "miners/v1/miner.proto";
+import "google/protobuf/wrappers.proto";
 
 option go_package = "v1";
 option (gogoproto.marshaler_all) = false;
@@ -41,6 +42,8 @@ service MinersService {
             get: "/api/v1/miners"
         };
     }
+    
+    rpc UpdateStatus(MinerRequest) returns (MinerResponse) {}
 }
 
 message MinerRequest {
@@ -49,7 +52,6 @@ message MinerRequest {
 
 message MinerResponse {
     string id = 1;
-    MinerStatus status = 2;
 }
 
 message MinerListResponse {
