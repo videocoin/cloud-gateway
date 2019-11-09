@@ -11,7 +11,6 @@ import (
 	proto "github.com/gogo/protobuf/proto"
 	types "github.com/gogo/protobuf/types"
 	golang_proto "github.com/golang/protobuf/proto"
-	rpc "github.com/videocoin/cloud-api/rpc"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -30,6 +29,56 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+type RegistrationRequest struct {
+	ClientID             string   `protobuf:"bytes,1,opt,name=client_id,json=clientId,proto3" json:"client_id,omitempty"`
+	Address              string   `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RegistrationRequest) Reset()         { *m = RegistrationRequest{} }
+func (m *RegistrationRequest) String() string { return proto.CompactTextString(m) }
+func (*RegistrationRequest) ProtoMessage()    {}
+func (*RegistrationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1a3d7c5a419ed72c, []int{0}
+}
+func (m *RegistrationRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RegistrationRequest.Unmarshal(m, b)
+}
+func (m *RegistrationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RegistrationRequest.Marshal(b, m, deterministic)
+}
+func (m *RegistrationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RegistrationRequest.Merge(m, src)
+}
+func (m *RegistrationRequest) XXX_Size() int {
+	return xxx_messageInfo_RegistrationRequest.Size(m)
+}
+func (m *RegistrationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RegistrationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RegistrationRequest proto.InternalMessageInfo
+
+func (m *RegistrationRequest) GetClientID() string {
+	if m != nil {
+		return m.ClientID
+	}
+	return ""
+}
+
+func (m *RegistrationRequest) GetAddress() string {
+	if m != nil {
+		return m.Address
+	}
+	return ""
+}
+
+func (*RegistrationRequest) XXX_MessageName() string {
+	return "cloud.api.miners.v1.RegistrationRequest"
+}
+
 type MinerRequest struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -41,7 +90,7 @@ func (m *MinerRequest) Reset()         { *m = MinerRequest{} }
 func (m *MinerRequest) String() string { return proto.CompactTextString(m) }
 func (*MinerRequest) ProtoMessage()    {}
 func (*MinerRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1a3d7c5a419ed72c, []int{0}
+	return fileDescriptor_1a3d7c5a419ed72c, []int{1}
 }
 func (m *MinerRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_MinerRequest.Unmarshal(m, b)
@@ -73,18 +122,19 @@ func (*MinerRequest) XXX_MessageName() string {
 }
 
 type MinerResponse struct {
-	Id                   string      `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Status               MinerStatus `protobuf:"varint,2,opt,name=status,proto3,enum=cloud.api.miners.v1.MinerStatus" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
-	XXX_unrecognized     []byte      `json:"-"`
-	XXX_sizecache        int32       `json:"-"`
+	Id                   string            `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Status               MinerStatus       `protobuf:"varint,2,opt,name=status,proto3,enum=cloud.api.miners.v1.MinerStatus" json:"status,omitempty"`
+	Tags                 map[string]string `protobuf:"bytes,3,rep,name=tags,proto3" json:"tags,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
 }
 
 func (m *MinerResponse) Reset()         { *m = MinerResponse{} }
 func (m *MinerResponse) String() string { return proto.CompactTextString(m) }
 func (*MinerResponse) ProtoMessage()    {}
 func (*MinerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1a3d7c5a419ed72c, []int{1}
+	return fileDescriptor_1a3d7c5a419ed72c, []int{2}
 }
 func (m *MinerResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_MinerResponse.Unmarshal(m, b)
@@ -118,6 +168,13 @@ func (m *MinerResponse) GetStatus() MinerStatus {
 	return MinerStatusOffline
 }
 
+func (m *MinerResponse) GetTags() map[string]string {
+	if m != nil {
+		return m.Tags
+	}
+	return nil
+}
+
 func (*MinerResponse) XXX_MessageName() string {
 	return "cloud.api.miners.v1.MinerResponse"
 }
@@ -133,7 +190,7 @@ func (m *MinerListResponse) Reset()         { *m = MinerListResponse{} }
 func (m *MinerListResponse) String() string { return proto.CompactTextString(m) }
 func (*MinerListResponse) ProtoMessage()    {}
 func (*MinerListResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1a3d7c5a419ed72c, []int{2}
+	return fileDescriptor_1a3d7c5a419ed72c, []int{3}
 }
 func (m *MinerListResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_MinerListResponse.Unmarshal(m, b)
@@ -176,7 +233,7 @@ func (m *PingRequest) Reset()         { *m = PingRequest{} }
 func (m *PingRequest) String() string { return proto.CompactTextString(m) }
 func (*PingRequest) ProtoMessage()    {}
 func (*PingRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1a3d7c5a419ed72c, []int{3}
+	return fileDescriptor_1a3d7c5a419ed72c, []int{4}
 }
 func (m *PingRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PingRequest.Unmarshal(m, b)
@@ -224,7 +281,7 @@ func (m *PingResponse) Reset()         { *m = PingResponse{} }
 func (m *PingResponse) String() string { return proto.CompactTextString(m) }
 func (*PingResponse) ProtoMessage()    {}
 func (*PingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1a3d7c5a419ed72c, []int{4}
+	return fileDescriptor_1a3d7c5a419ed72c, []int{5}
 }
 func (m *PingResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PingResponse.Unmarshal(m, b)
@@ -260,7 +317,7 @@ func (m *AssignTaskRequest) Reset()         { *m = AssignTaskRequest{} }
 func (m *AssignTaskRequest) String() string { return proto.CompactTextString(m) }
 func (*AssignTaskRequest) ProtoMessage()    {}
 func (*AssignTaskRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1a3d7c5a419ed72c, []int{5}
+	return fileDescriptor_1a3d7c5a419ed72c, []int{6}
 }
 func (m *AssignTaskRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AssignTaskRequest.Unmarshal(m, b)
@@ -310,7 +367,7 @@ func (m *Tag) Reset()         { *m = Tag{} }
 func (m *Tag) String() string { return proto.CompactTextString(m) }
 func (*Tag) ProtoMessage()    {}
 func (*Tag) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1a3d7c5a419ed72c, []int{6}
+	return fileDescriptor_1a3d7c5a419ed72c, []int{7}
 }
 func (m *Tag) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Tag.Unmarshal(m, b)
@@ -360,7 +417,7 @@ func (m *SetTagsRequest) Reset()         { *m = SetTagsRequest{} }
 func (m *SetTagsRequest) String() string { return proto.CompactTextString(m) }
 func (*SetTagsRequest) ProtoMessage()    {}
 func (*SetTagsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1a3d7c5a419ed72c, []int{7}
+	return fileDescriptor_1a3d7c5a419ed72c, []int{8}
 }
 func (m *SetTagsRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SetTagsRequest.Unmarshal(m, b)
@@ -397,11 +454,57 @@ func (m *SetTagsRequest) GetTags() []*Tag {
 func (*SetTagsRequest) XXX_MessageName() string {
 	return "cloud.api.miners.v1.SetTagsRequest"
 }
+
+type ForceTaskListResponse struct {
+	Ids                  []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ForceTaskListResponse) Reset()         { *m = ForceTaskListResponse{} }
+func (m *ForceTaskListResponse) String() string { return proto.CompactTextString(m) }
+func (*ForceTaskListResponse) ProtoMessage()    {}
+func (*ForceTaskListResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1a3d7c5a419ed72c, []int{9}
+}
+func (m *ForceTaskListResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ForceTaskListResponse.Unmarshal(m, b)
+}
+func (m *ForceTaskListResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ForceTaskListResponse.Marshal(b, m, deterministic)
+}
+func (m *ForceTaskListResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ForceTaskListResponse.Merge(m, src)
+}
+func (m *ForceTaskListResponse) XXX_Size() int {
+	return xxx_messageInfo_ForceTaskListResponse.Size(m)
+}
+func (m *ForceTaskListResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ForceTaskListResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ForceTaskListResponse proto.InternalMessageInfo
+
+func (m *ForceTaskListResponse) GetIds() []string {
+	if m != nil {
+		return m.Ids
+	}
+	return nil
+}
+
+func (*ForceTaskListResponse) XXX_MessageName() string {
+	return "cloud.api.miners.v1.ForceTaskListResponse"
+}
 func init() {
+	proto.RegisterType((*RegistrationRequest)(nil), "cloud.api.miners.v1.RegistrationRequest")
+	golang_proto.RegisterType((*RegistrationRequest)(nil), "cloud.api.miners.v1.RegistrationRequest")
 	proto.RegisterType((*MinerRequest)(nil), "cloud.api.miners.v1.MinerRequest")
 	golang_proto.RegisterType((*MinerRequest)(nil), "cloud.api.miners.v1.MinerRequest")
 	proto.RegisterType((*MinerResponse)(nil), "cloud.api.miners.v1.MinerResponse")
 	golang_proto.RegisterType((*MinerResponse)(nil), "cloud.api.miners.v1.MinerResponse")
+	proto.RegisterMapType((map[string]string)(nil), "cloud.api.miners.v1.MinerResponse.TagsEntry")
+	golang_proto.RegisterMapType((map[string]string)(nil), "cloud.api.miners.v1.MinerResponse.TagsEntry")
 	proto.RegisterType((*MinerListResponse)(nil), "cloud.api.miners.v1.MinerListResponse")
 	golang_proto.RegisterType((*MinerListResponse)(nil), "cloud.api.miners.v1.MinerListResponse")
 	proto.RegisterType((*PingRequest)(nil), "cloud.api.miners.v1.PingRequest")
@@ -414,6 +517,8 @@ func init() {
 	golang_proto.RegisterType((*Tag)(nil), "cloud.api.miners.v1.Tag")
 	proto.RegisterType((*SetTagsRequest)(nil), "cloud.api.miners.v1.SetTagsRequest")
 	golang_proto.RegisterType((*SetTagsRequest)(nil), "cloud.api.miners.v1.SetTagsRequest")
+	proto.RegisterType((*ForceTaskListResponse)(nil), "cloud.api.miners.v1.ForceTaskListResponse")
+	golang_proto.RegisterType((*ForceTaskListResponse)(nil), "cloud.api.miners.v1.ForceTaskListResponse")
 }
 
 func init() { proto.RegisterFile("miners/v1/miner_service.proto", fileDescriptor_1a3d7c5a419ed72c) }
@@ -422,49 +527,54 @@ func init() {
 }
 
 var fileDescriptor_1a3d7c5a419ed72c = []byte{
-	// 669 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x53, 0x41, 0x4f, 0x13, 0x41,
-	0x14, 0xee, 0xb6, 0xb0, 0xc0, 0xa3, 0x36, 0x30, 0x08, 0xa9, 0x45, 0x4a, 0x19, 0x12, 0x83, 0x44,
-	0x76, 0x03, 0x5e, 0x08, 0x37, 0x01, 0xa3, 0x4d, 0x04, 0xc9, 0x52, 0x0f, 0x78, 0x69, 0x86, 0xdd,
-	0x61, 0x99, 0xd0, 0xee, 0xac, 0x9d, 0x69, 0x0d, 0x1a, 0x0f, 0xfa, 0x17, 0xfc, 0x43, 0x1e, 0x39,
-	0x9a, 0x78, 0x27, 0xa6, 0xf8, 0x43, 0xcc, 0xcc, 0x6c, 0xa5, 0xe0, 0x96, 0x34, 0xc6, 0xdb, 0xcc,
-	0xbc, 0xef, 0x7d, 0xdf, 0xbc, 0xf7, 0xbe, 0x07, 0x0b, 0x4d, 0x16, 0xd1, 0x96, 0x70, 0x3b, 0xeb,
-	0xae, 0x3e, 0xd5, 0x05, 0x6d, 0x75, 0x98, 0x4f, 0x9d, 0xb8, 0xc5, 0x25, 0x47, 0x33, 0x7e, 0x83,
-	0xb7, 0x03, 0x87, 0xc4, 0xcc, 0x31, 0x40, 0xa7, 0xb3, 0x5e, 0x9a, 0x0f, 0x39, 0x0f, 0x1b, 0xd4,
-	0xd5, 0x90, 0xe3, 0xf6, 0x89, 0x4b, 0x9b, 0xb1, 0x3c, 0x37, 0x19, 0xa5, 0x87, 0x49, 0x90, 0xc4,
-	0xcc, 0x25, 0x51, 0xc4, 0x25, 0x91, 0x8c, 0x47, 0x22, 0x89, 0xae, 0x85, 0x4c, 0x9e, 0xb6, 0x8f,
-	0x1d, 0x9f, 0x37, 0xdd, 0x90, 0x87, 0xfc, 0x9a, 0x43, 0xdd, 0xf4, 0x45, 0x9f, 0x12, 0xb8, 0xdb,
-	0x07, 0xef, 0xb0, 0x80, 0x72, 0x9f, 0xb3, 0xc8, 0xd5, 0x7f, 0x5a, 0x53, 0x02, 0xad, 0xd8, 0x77,
-	0x4f, 0x29, 0x69, 0xc8, 0xd3, 0x24, 0x61, 0xf6, 0x56, 0x39, 0xe6, 0x19, 0x97, 0x21, 0xbf, 0xa7,
-	0xae, 0x1e, 0x7d, 0xd7, 0xa6, 0x42, 0xa2, 0x02, 0x64, 0x59, 0x50, 0xb4, 0x2a, 0xd6, 0xca, 0x84,
-	0x97, 0x65, 0x01, 0x3e, 0x82, 0x7b, 0x49, 0x5c, 0xc4, 0x3c, 0x12, 0xf4, 0x36, 0x00, 0x6d, 0x82,
-	0x2d, 0x24, 0x91, 0x6d, 0x51, 0xcc, 0x56, 0xac, 0x95, 0xc2, 0x46, 0xc5, 0x49, 0x69, 0x8c, 0xa3,
-	0x39, 0x0e, 0x35, 0xce, 0x4b, 0xf0, 0x78, 0x0f, 0xa6, 0xf5, 0xf3, 0x2b, 0x26, 0xe4, 0x1f, 0xfa,
-	0x4d, 0x18, 0x65, 0x92, 0x36, 0x45, 0xd1, 0xaa, 0xe4, 0x56, 0x26, 0x37, 0xf0, 0x60, 0xb6, 0x5e,
-	0x8a, 0x67, 0x12, 0xf0, 0x11, 0x4c, 0x1e, 0xb0, 0x28, 0xec, 0x15, 0xf2, 0x18, 0x26, 0xfc, 0x06,
-	0xa3, 0x91, 0xac, 0xf7, 0xbe, 0xbb, 0x9d, 0xef, 0x5e, 0x2e, 0x8e, 0xef, 0xe8, 0xc7, 0xea, 0xae,
-	0x37, 0x6e, 0xc2, 0xd5, 0x00, 0x2d, 0xc2, 0xa4, 0x38, 0x17, 0x92, 0x36, 0xeb, 0x2c, 0x3a, 0xe1,
-	0xba, 0x8e, 0xbc, 0x07, 0xe6, 0xa9, 0x1a, 0x9d, 0x70, 0x5c, 0x80, 0xbc, 0xa1, 0x36, 0x8a, 0xd8,
-	0x87, 0xe9, 0x67, 0x42, 0xb0, 0x30, 0xaa, 0x11, 0x71, 0xf6, 0x0f, 0x82, 0xcb, 0x30, 0x26, 0x89,
-	0x38, 0x53, 0xc0, 0xac, 0x06, 0x42, 0xf7, 0x72, 0xd1, 0x56, 0x64, 0xd5, 0x5d, 0xcf, 0x56, 0xa1,
-	0x6a, 0x80, 0xd7, 0x20, 0x57, 0x23, 0x21, 0x9a, 0x82, 0xdc, 0x19, 0x3d, 0x4f, 0x1a, 0xae, 0x8e,
-	0xe8, 0x3e, 0x8c, 0x76, 0x48, 0xa3, 0x4d, 0x4d, 0xae, 0x67, 0x2e, 0x78, 0x1f, 0x0a, 0x87, 0x54,
-	0xd6, 0x48, 0x28, 0x06, 0x8c, 0x12, 0x3d, 0x81, 0x11, 0x49, 0x42, 0x35, 0x27, 0xd5, 0xd9, 0x62,
-	0x6a, 0x67, 0x6b, 0x24, 0xf4, 0x34, 0x6a, 0xe3, 0xb3, 0x9d, 0x4c, 0x5e, 0x1c, 0x1a, 0xdf, 0xa3,
-	0xd7, 0x60, 0xbf, 0xd4, 0x8e, 0x42, 0x73, 0x8e, 0xb1, 0xb2, 0xd3, 0xf3, 0xa8, 0xf3, 0x5c, 0xf9,
-	0xbc, 0x34, 0xdf, 0xc7, 0xd9, 0x8a, 0x7d, 0xc7, 0xc0, 0xcd, 0xd8, 0xf1, 0xd4, 0x97, 0x1f, 0xbf,
-	0xbe, 0x66, 0x01, 0x8d, 0x27, 0xbe, 0xfc, 0x80, 0xea, 0x60, 0xef, 0xb4, 0x28, 0x91, 0x74, 0x20,
-	0xe1, 0x10, 0xe3, 0xc7, 0x0f, 0x34, 0xef, 0x0c, 0x2e, 0xe8, 0xc5, 0xea, 0xd9, 0x5b, 0x6c, 0x59,
-	0xab, 0x88, 0x41, 0xee, 0x05, 0x95, 0x68, 0xe9, 0x2e, 0x16, 0xdd, 0xab, 0xa1, 0x84, 0xe6, 0xb5,
-	0xd0, 0x2c, 0x9a, 0xb9, 0x29, 0xe4, 0x7e, 0x64, 0xc1, 0x27, 0xc4, 0x60, 0x44, 0xf9, 0x78, 0x18,
-	0xad, 0x47, 0x83, 0x21, 0xfd, 0xab, 0x80, 0xe7, 0xb4, 0xde, 0x14, 0xba, 0x55, 0x18, 0xda, 0x83,
-	0x11, 0xe5, 0x46, 0x94, 0xbe, 0x69, 0x7d, 0x3b, 0x50, 0x5a, 0xba, 0x03, 0x91, 0x88, 0x64, 0xd0,
-	0x3e, 0xc0, 0xb5, 0x99, 0x51, 0xfa, 0xe7, 0xfe, 0x72, 0x7b, 0x69, 0xc0, 0xc4, 0x70, 0x06, 0x1d,
-	0x40, 0xfe, 0x4d, 0x44, 0xfe, 0x27, 0xe3, 0x7b, 0x18, 0x4b, 0xac, 0x8d, 0x96, 0x53, 0xc9, 0x6e,
-	0x1a, 0x7f, 0xa8, 0x61, 0x2e, 0xeb, 0xe6, 0x2e, 0x94, 0x8a, 0x29, 0xc3, 0x74, 0xd5, 0x02, 0x6c,
-	0x59, 0xab, 0xdb, 0xc5, 0x8b, 0x6e, 0x39, 0xf3, 0xbd, 0x5b, 0xce, 0xfc, 0xec, 0x96, 0x33, 0xdf,
-	0xae, 0xca, 0xd6, 0xc5, 0x55, 0xd9, 0x7a, 0x9b, 0xed, 0xac, 0x1f, 0xdb, 0xfa, 0x93, 0x4f, 0x7f,
-	0x07, 0x00, 0x00, 0xff, 0xff, 0xb3, 0x77, 0x38, 0xbe, 0x25, 0x06, 0x00, 0x00,
+	// 744 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x54, 0xcf, 0x4f, 0x1b, 0x47,
+	0x18, 0xf5, 0xda, 0x60, 0xe3, 0x0f, 0xd7, 0x32, 0xe3, 0x82, 0xb6, 0xa6, 0x18, 0x18, 0xa4, 0x0a,
+	0x10, 0xec, 0x0a, 0x7a, 0x28, 0xe2, 0xd4, 0x1a, 0x28, 0xb2, 0x54, 0x10, 0x5a, 0x5c, 0xa9, 0xe5,
+	0x62, 0x0d, 0xde, 0x61, 0x33, 0xc2, 0xde, 0x75, 0x76, 0xc6, 0x8e, 0xac, 0x28, 0x97, 0xfc, 0x0b,
+	0xf9, 0x6f, 0x72, 0xca, 0x91, 0x63, 0xa4, 0xe4, 0x8c, 0x22, 0x93, 0x3f, 0x24, 0x9a, 0x99, 0x35,
+	0x60, 0xb2, 0x26, 0x16, 0xe2, 0x36, 0x3f, 0xde, 0xbc, 0xf7, 0xed, 0xf7, 0xbe, 0xb7, 0xb0, 0xd0,
+	0x62, 0x3e, 0x0d, 0xb9, 0xdd, 0xdd, 0xb2, 0xd5, 0xaa, 0xce, 0x69, 0xd8, 0x65, 0x0d, 0x6a, 0xb5,
+	0xc3, 0x40, 0x04, 0xa8, 0xd8, 0x68, 0x06, 0x1d, 0xd7, 0x22, 0x6d, 0x66, 0x69, 0xa0, 0xd5, 0xdd,
+	0x2a, 0xcd, 0x7b, 0x41, 0xe0, 0x35, 0xa9, 0xad, 0x20, 0xe7, 0x9d, 0x0b, 0x9b, 0xb6, 0xda, 0xa2,
+	0xa7, 0x5f, 0x94, 0x7e, 0x8d, 0x2e, 0x49, 0x9b, 0xd9, 0xc4, 0xf7, 0x03, 0x41, 0x04, 0x0b, 0x7c,
+	0x1e, 0xdd, 0x6e, 0x7a, 0x4c, 0xbc, 0xe8, 0x9c, 0x5b, 0x8d, 0xa0, 0x65, 0x7b, 0x81, 0x17, 0xdc,
+	0x71, 0xc8, 0x9d, 0xda, 0xa8, 0x55, 0x04, 0x9f, 0x7d, 0x50, 0x9d, 0x3e, 0xc6, 0x67, 0x50, 0x74,
+	0xa8, 0xc7, 0xb8, 0x08, 0x15, 0xb9, 0x43, 0x5f, 0x76, 0x28, 0x17, 0x68, 0x0d, 0xb2, 0x8d, 0x26,
+	0xa3, 0xbe, 0xa8, 0x33, 0xd7, 0x34, 0x96, 0x8c, 0xd5, 0x6c, 0x25, 0xd7, 0xbf, 0x5e, 0x9c, 0xda,
+	0x53, 0x87, 0xd5, 0x7d, 0x67, 0x4a, 0x5f, 0x57, 0x5d, 0x64, 0x42, 0x86, 0xb8, 0x6e, 0x48, 0x39,
+	0x37, 0x93, 0x12, 0xe8, 0x0c, 0xb6, 0xb8, 0x0c, 0xb9, 0x23, 0x29, 0x35, 0x20, 0xcd, 0x43, 0x72,
+	0xc0, 0xe6, 0x24, 0x99, 0x8b, 0x3f, 0x1b, 0xf0, 0x53, 0x04, 0xe0, 0xed, 0xc0, 0xe7, 0xf4, 0x21,
+	0x02, 0xed, 0x40, 0x9a, 0x0b, 0x22, 0x3a, 0x9a, 0x3a, 0xbf, 0xbd, 0x64, 0xc5, 0x34, 0xd1, 0x52,
+	0x1c, 0xa7, 0x0a, 0xe7, 0x44, 0x78, 0xf4, 0x27, 0x4c, 0x08, 0xe2, 0x71, 0x33, 0xb5, 0x94, 0x5a,
+	0x9d, 0xde, 0xde, 0x18, 0xfd, 0x6e, 0xa0, 0x6d, 0xd5, 0x88, 0xc7, 0x0f, 0x7c, 0x11, 0xf6, 0x1c,
+	0xf5, 0xb2, 0xf4, 0x07, 0x64, 0x6f, 0x8f, 0x50, 0x01, 0x52, 0x97, 0xb4, 0x17, 0x55, 0x26, 0x97,
+	0xe8, 0x67, 0x98, 0xec, 0x92, 0x66, 0x87, 0x46, 0x1f, 0xad, 0x37, 0xbb, 0xc9, 0x1d, 0x03, 0x1f,
+	0xc1, 0x8c, 0x62, 0xfe, 0x87, 0x71, 0x71, 0xfb, 0x65, 0x3b, 0x30, 0xc9, 0x04, 0x6d, 0x71, 0xd3,
+	0x50, 0x05, 0xe1, 0x1f, 0x17, 0xe4, 0xe8, 0x07, 0xf8, 0x7f, 0x98, 0x3e, 0x61, 0xbe, 0xf7, 0x04,
+	0x67, 0x16, 0x61, 0x9a, 0xf7, 0xb8, 0xa0, 0xad, 0x3a, 0xf3, 0x2f, 0x02, 0x55, 0x68, 0xce, 0x01,
+	0x7d, 0x54, 0xf5, 0x2f, 0x02, 0x9c, 0x87, 0x9c, 0xa6, 0xd6, 0x8a, 0xb8, 0x01, 0x33, 0x7f, 0x71,
+	0xce, 0x3c, 0xbf, 0x46, 0xf8, 0xe5, 0x13, 0x04, 0x57, 0x20, 0x23, 0x08, 0xbf, 0x94, 0x40, 0xd5,
+	0x95, 0x0a, 0xf4, 0xaf, 0x17, 0xd3, 0x92, 0xac, 0xba, 0xef, 0xa4, 0xe5, 0x55, 0xd5, 0xc5, 0x9b,
+	0x90, 0xaa, 0x11, 0x6f, 0xdc, 0x8e, 0xe2, 0x63, 0xc8, 0x9f, 0x52, 0x21, 0x9d, 0x18, 0x31, 0x46,
+	0x68, 0x23, 0xb2, 0x3a, 0xa9, 0x3a, 0x6b, 0xc6, 0x76, 0xb6, 0x46, 0x3c, 0x6d, 0x2b, 0x5e, 0x83,
+	0xd9, 0xbf, 0x83, 0xb0, 0x41, 0x65, 0x55, 0x43, 0x0e, 0x15, 0x20, 0xc5, 0x5c, 0xed, 0x4f, 0xd6,
+	0x91, 0xcb, 0xed, 0xf7, 0x99, 0x68, 0x3e, 0xf9, 0xa9, 0x4e, 0x32, 0xaa, 0x43, 0x7a, 0x2f, 0xa4,
+	0x44, 0x50, 0x34, 0x67, 0xe9, 0x70, 0x5a, 0x83, 0xd4, 0x59, 0x07, 0x32, 0xb9, 0xa5, 0x31, 0x8c,
+	0xc5, 0xbf, 0xbc, 0xfd, 0xf4, 0xf5, 0x5d, 0xb2, 0x88, 0xf3, 0x2a, 0xd9, 0x83, 0x40, 0xf2, 0x5d,
+	0x63, 0x1d, 0x31, 0x48, 0x1d, 0x52, 0x81, 0x96, 0x1f, 0x63, 0x51, 0x5d, 0x18, 0x4b, 0x68, 0x5e,
+	0x09, 0xcd, 0xa2, 0xe2, 0xb0, 0x90, 0xfd, 0x9a, 0xb9, 0x6f, 0xd0, 0x19, 0x4c, 0xe9, 0xe4, 0xd3,
+	0x10, 0xad, 0xc6, 0x92, 0xc5, 0xfc, 0x18, 0xc6, 0x92, 0x4d, 0x20, 0x07, 0x32, 0x87, 0x54, 0x54,
+	0x7a, 0xd5, 0xfd, 0xe7, 0xfa, 0x94, 0x04, 0x62, 0x30, 0x21, 0xfd, 0x1a, 0x87, 0xf0, 0xb7, 0xd1,
+	0x90, 0xfb, 0x96, 0xe3, 0x39, 0xd5, 0x9f, 0x02, 0x7a, 0x60, 0x04, 0x3a, 0x82, 0x09, 0x99, 0x0b,
+	0x14, 0xff, 0xbb, 0xb9, 0x97, 0xc6, 0xd2, 0xf2, 0x23, 0x88, 0xdb, 0xca, 0x8f, 0x01, 0xee, 0x62,
+	0x85, 0xe2, 0x8b, 0xfb, 0x2e, 0x77, 0xa5, 0x11, 0x13, 0x86, 0x13, 0xe8, 0x04, 0x72, 0xff, 0xfa,
+	0xe4, 0x39, 0x19, 0x5f, 0x41, 0x26, 0x0a, 0x19, 0x5a, 0x89, 0x25, 0x1b, 0x8e, 0xe0, 0x58, 0x8e,
+	0xad, 0xa8, 0xe6, 0x2e, 0x94, 0xcc, 0x98, 0xe1, 0xb3, 0x65, 0x14, 0xe5, 0xbc, 0xff, 0x07, 0x85,
+	0x43, 0x2a, 0x86, 0x02, 0x39, 0x32, 0x5a, 0xeb, 0xb1, 0xa2, 0xb1, 0x61, 0xc6, 0x89, 0x8a, 0x79,
+	0xd5, 0x2f, 0x27, 0x3e, 0xf6, 0xcb, 0x89, 0x2f, 0xfd, 0x72, 0xe2, 0xc3, 0x4d, 0xd9, 0xb8, 0xba,
+	0x29, 0x1b, 0x67, 0xc9, 0xee, 0xd6, 0x79, 0x5a, 0xf1, 0xfe, 0xfe, 0x2d, 0x00, 0x00, 0xff, 0xff,
+	0xfa, 0xe2, 0xdf, 0x64, 0xb0, 0x07, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -479,14 +589,16 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MinersServiceClient interface {
-	Health(ctx context.Context, in *types.Empty, opts ...grpc.CallOption) (*rpc.HealthStatus, error)
 	Create(ctx context.Context, in *types.Empty, opts ...grpc.CallOption) (*MinerResponse, error)
 	Get(ctx context.Context, in *MinerRequest, opts ...grpc.CallOption) (*MinerResponse, error)
+	Register(ctx context.Context, in *RegistrationRequest, opts ...grpc.CallOption) (*MinerResponse, error)
+	GetByID(ctx context.Context, in *MinerRequest, opts ...grpc.CallOption) (*MinerResponse, error)
 	List(ctx context.Context, in *MinerRequest, opts ...grpc.CallOption) (*MinerListResponse, error)
 	Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error)
 	AssignTask(ctx context.Context, in *AssignTaskRequest, opts ...grpc.CallOption) (*types.Empty, error)
 	UnassignTask(ctx context.Context, in *AssignTaskRequest, opts ...grpc.CallOption) (*types.Empty, error)
 	SetTags(ctx context.Context, in *SetTagsRequest, opts ...grpc.CallOption) (*MinerResponse, error)
+	GetForceTaskList(ctx context.Context, in *types.Empty, opts ...grpc.CallOption) (*ForceTaskListResponse, error)
 }
 
 type minersServiceClient struct {
@@ -495,15 +607,6 @@ type minersServiceClient struct {
 
 func NewMinersServiceClient(cc *grpc.ClientConn) MinersServiceClient {
 	return &minersServiceClient{cc}
-}
-
-func (c *minersServiceClient) Health(ctx context.Context, in *types.Empty, opts ...grpc.CallOption) (*rpc.HealthStatus, error) {
-	out := new(rpc.HealthStatus)
-	err := c.cc.Invoke(ctx, "/cloud.api.miners.v1.MinersService/Health", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *minersServiceClient) Create(ctx context.Context, in *types.Empty, opts ...grpc.CallOption) (*MinerResponse, error) {
@@ -518,6 +621,24 @@ func (c *minersServiceClient) Create(ctx context.Context, in *types.Empty, opts 
 func (c *minersServiceClient) Get(ctx context.Context, in *MinerRequest, opts ...grpc.CallOption) (*MinerResponse, error) {
 	out := new(MinerResponse)
 	err := c.cc.Invoke(ctx, "/cloud.api.miners.v1.MinersService/Get", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *minersServiceClient) Register(ctx context.Context, in *RegistrationRequest, opts ...grpc.CallOption) (*MinerResponse, error) {
+	out := new(MinerResponse)
+	err := c.cc.Invoke(ctx, "/cloud.api.miners.v1.MinersService/Register", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *minersServiceClient) GetByID(ctx context.Context, in *MinerRequest, opts ...grpc.CallOption) (*MinerResponse, error) {
+	out := new(MinerResponse)
+	err := c.cc.Invoke(ctx, "/cloud.api.miners.v1.MinersService/GetByID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -569,30 +690,44 @@ func (c *minersServiceClient) SetTags(ctx context.Context, in *SetTagsRequest, o
 	return out, nil
 }
 
+func (c *minersServiceClient) GetForceTaskList(ctx context.Context, in *types.Empty, opts ...grpc.CallOption) (*ForceTaskListResponse, error) {
+	out := new(ForceTaskListResponse)
+	err := c.cc.Invoke(ctx, "/cloud.api.miners.v1.MinersService/GetForceTaskList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MinersServiceServer is the server API for MinersService service.
 type MinersServiceServer interface {
-	Health(context.Context, *types.Empty) (*rpc.HealthStatus, error)
 	Create(context.Context, *types.Empty) (*MinerResponse, error)
 	Get(context.Context, *MinerRequest) (*MinerResponse, error)
+	Register(context.Context, *RegistrationRequest) (*MinerResponse, error)
+	GetByID(context.Context, *MinerRequest) (*MinerResponse, error)
 	List(context.Context, *MinerRequest) (*MinerListResponse, error)
 	Ping(context.Context, *PingRequest) (*PingResponse, error)
 	AssignTask(context.Context, *AssignTaskRequest) (*types.Empty, error)
 	UnassignTask(context.Context, *AssignTaskRequest) (*types.Empty, error)
 	SetTags(context.Context, *SetTagsRequest) (*MinerResponse, error)
+	GetForceTaskList(context.Context, *types.Empty) (*ForceTaskListResponse, error)
 }
 
 // UnimplementedMinersServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedMinersServiceServer struct {
 }
 
-func (*UnimplementedMinersServiceServer) Health(ctx context.Context, req *types.Empty) (*rpc.HealthStatus, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Health not implemented")
-}
 func (*UnimplementedMinersServiceServer) Create(ctx context.Context, req *types.Empty) (*MinerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
 func (*UnimplementedMinersServiceServer) Get(ctx context.Context, req *MinerRequest) (*MinerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (*UnimplementedMinersServiceServer) Register(ctx context.Context, req *RegistrationRequest) (*MinerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+}
+func (*UnimplementedMinersServiceServer) GetByID(ctx context.Context, req *MinerRequest) (*MinerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByID not implemented")
 }
 func (*UnimplementedMinersServiceServer) List(ctx context.Context, req *MinerRequest) (*MinerListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
@@ -609,27 +744,12 @@ func (*UnimplementedMinersServiceServer) UnassignTask(ctx context.Context, req *
 func (*UnimplementedMinersServiceServer) SetTags(ctx context.Context, req *SetTagsRequest) (*MinerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetTags not implemented")
 }
+func (*UnimplementedMinersServiceServer) GetForceTaskList(ctx context.Context, req *types.Empty) (*ForceTaskListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetForceTaskList not implemented")
+}
 
 func RegisterMinersServiceServer(s *grpc.Server, srv MinersServiceServer) {
 	s.RegisterService(&_MinersService_serviceDesc, srv)
-}
-
-func _MinersService_Health_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(types.Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MinersServiceServer).Health(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/cloud.api.miners.v1.MinersService/Health",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MinersServiceServer).Health(ctx, req.(*types.Empty))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _MinersService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -664,6 +784,42 @@ func _MinersService_Get_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MinersServiceServer).Get(ctx, req.(*MinerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MinersService_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegistrationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MinersServiceServer).Register(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cloud.api.miners.v1.MinersService/Register",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MinersServiceServer).Register(ctx, req.(*RegistrationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MinersService_GetByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MinerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MinersServiceServer).GetByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cloud.api.miners.v1.MinersService/GetByID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MinersServiceServer).GetByID(ctx, req.(*MinerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -758,14 +914,28 @@ func _MinersService_SetTags_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MinersService_GetForceTaskList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(types.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MinersServiceServer).GetForceTaskList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cloud.api.miners.v1.MinersService/GetForceTaskList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MinersServiceServer).GetForceTaskList(ctx, req.(*types.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _MinersService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "cloud.api.miners.v1.MinersService",
 	HandlerType: (*MinersServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "Health",
-			Handler:    _MinersService_Health_Handler,
-		},
 		{
 			MethodName: "Create",
 			Handler:    _MinersService_Create_Handler,
@@ -773,6 +943,14 @@ var _MinersService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Get",
 			Handler:    _MinersService_Get_Handler,
+		},
+		{
+			MethodName: "Register",
+			Handler:    _MinersService_Register_Handler,
+		},
+		{
+			MethodName: "GetByID",
+			Handler:    _MinersService_GetByID_Handler,
 		},
 		{
 			MethodName: "List",
@@ -793,6 +971,10 @@ var _MinersService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetTags",
 			Handler:    _MinersService_SetTags_Handler,
+		},
+		{
+			MethodName: "GetForceTaskList",
+			Handler:    _MinersService_GetForceTaskList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
