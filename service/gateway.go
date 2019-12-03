@@ -10,6 +10,7 @@ import (
 	"github.com/labstack/echo/middleware"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
+	msv1 "github.com/videocoin/cloud-api/mediaserver/v1"
 	minersv1 "github.com/videocoin/cloud-api/miners/v1"
 	profilesv1 "github.com/videocoin/cloud-api/profiles/v1"
 	streamsv1 "github.com/videocoin/cloud-api/streams/v1"
@@ -101,6 +102,11 @@ func NewRpcGateway(cfg *Config) (*RpcGateway, error) {
 	}
 
 	err = minersv1.RegisterMinersServiceHandlerFromEndpoint(ctx, mux, gw.cfg.MinersRpcAddr, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	err = msv1.RegisterMediaServerServiceHandlerFromEndpoint(ctx, mux, gw.cfg.MediaServerRpcAddr, opts)
 	if err != nil {
 		return nil, err
 	}
