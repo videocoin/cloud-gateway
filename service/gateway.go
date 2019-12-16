@@ -12,6 +12,7 @@ import (
 	"github.com/sirupsen/logrus"
 	msv1 "github.com/videocoin/cloud-api/mediaserver/v1"
 	minersv1 "github.com/videocoin/cloud-api/miners/v1"
+	profilemanagerv1 "github.com/videocoin/cloud-api/profiles/manager/v1"
 	profilesv1 "github.com/videocoin/cloud-api/profiles/v1"
 	streamsv1 "github.com/videocoin/cloud-api/streams/v1"
 	usersv1 "github.com/videocoin/cloud-api/users/v1"
@@ -86,7 +87,12 @@ func NewRpcGateway(cfg *Config) (*RpcGateway, error) {
 	)
 	opts := grpcutil.DefaultClientDialOpts(cfg.Logger)
 
-	err := usersv1.RegisterUserServiceHandlerFromEndpoint(ctx, mux, gw.cfg.UsersRpcAddr, opts)
+	err := profilemanagerv1.RegisterProfileManagerServiceHandlerFromEndpoint(ctx, mux, gw.cfg.ProfileManagerRpcAddr, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	err = usersv1.RegisterUserServiceHandlerFromEndpoint(ctx, mux, gw.cfg.UsersRpcAddr, opts)
 	if err != nil {
 		return nil, err
 	}

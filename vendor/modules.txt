@@ -94,6 +94,7 @@ github.com/valyala/fasttemplate
 # github.com/videocoin/cloud-api v0.2.15 => ../cloud-api
 github.com/videocoin/cloud-api/mediaserver/v1
 github.com/videocoin/cloud-api/miners/v1
+github.com/videocoin/cloud-api/profiles/manager/v1
 github.com/videocoin/cloud-api/profiles/v1
 github.com/videocoin/cloud-api/streams/v1
 github.com/videocoin/cloud-api/users/v1
