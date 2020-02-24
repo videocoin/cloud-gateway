@@ -7,12 +7,12 @@ type Config struct {
 	Version string `envconfig:"-"`
 
 	Addr                  string `default:"0.0.0.0:8080"`
-	UsersRpcAddr          string `default:"0.0.0.0:5000"`
-	StreamsRpcAddr        string `default:"0.0.0.0:5002"`
-	ProfilesRpcAddr       string `default:"0.0.0.0:5004"`
-	ProfileManagerRpcAddr string `default:"0.0.0.0:5084"`
-	MinersRpcAddr         string `default:"0.0.0.0:5011"`
-	MediaServerRpcAddr    string `default:"0.0.0.0:5090"`
+	UsersRPCAddr          string `default:"0.0.0.0:5000"`
+	StreamsRPCAddr        string `default:"0.0.0.0:5002"`
+	ProfilesRPCAddr       string `default:"0.0.0.0:5004"`
+	ProfileManagerRPCAddr string `default:"0.0.0.0:5084"`
+	MinersRPCAddr         string `default:"0.0.0.0:5011"`
+	MediaServerRPCAddr    string `default:"0.0.0.0:5090"`
 
 	Logger *logrus.Entry `envconfig:"-"`
 }

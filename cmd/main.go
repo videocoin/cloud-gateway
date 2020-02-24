@@ -17,7 +17,7 @@ var (
 )
 
 func main() {
-	logger.Init(ServiceName, Version)
+	logger.Init(ServiceName, Version)  //nolint
 
 	log := logrus.NewEntry(logrus.New())
 	log = logrus.WithFields(logrus.Fields{
@@ -37,7 +37,7 @@ func main() {
 
 	cfg.Logger = log
 
-	gw, err := service.NewRpcGateway(cfg)
+	gw, err := service.NewRPCGateway(cfg)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -55,7 +55,7 @@ func main() {
 	}()
 
 	log.Info("starting")
-	go gw.Start()
+	go log.Error(gw.Start())
 
 	<-exit
 

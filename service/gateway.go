@@ -53,19 +53,19 @@ func chainGrpcAnnotators(annotators ...annotator) annotator {
 	}
 }
 
-type RpcGateway struct {
+type RPCGateway struct {
 	cfg    *Config
 	logger *logrus.Entry
 	e      *echo.Echo
 	gw     *runtime.ServeMux
 }
 
-func NewRpcGateway(cfg *Config) (*RpcGateway, error) {
+func NewRPCGateway(cfg *Config) (*RPCGateway, error) {
 	e := echo.New()
 	e.HideBanner = true
 	e.HidePort = true
 
-	gw := &RpcGateway{
+	gw := &RPCGateway{
 		cfg:    cfg,
 		logger: cfg.Logger,
 		e:      e,
@@ -87,32 +87,32 @@ func NewRpcGateway(cfg *Config) (*RpcGateway, error) {
 	)
 	opts := grpcutil.DefaultClientDialOpts(cfg.Logger)
 
-	err := profilemanagerv1.RegisterProfileManagerServiceHandlerFromEndpoint(ctx, mux, gw.cfg.ProfileManagerRpcAddr, opts)
+	err := profilemanagerv1.RegisterProfileManagerServiceHandlerFromEndpoint(ctx, mux, gw.cfg.ProfileManagerRPCAddr, opts)
 	if err != nil {
 		return nil, err
 	}
 
-	err = usersv1.RegisterUserServiceHandlerFromEndpoint(ctx, mux, gw.cfg.UsersRpcAddr, opts)
+	err = usersv1.RegisterUserServiceHandlerFromEndpoint(ctx, mux, gw.cfg.UsersRPCAddr, opts)
 	if err != nil {
 		return nil, err
 	}
 
-	err = streamsv1.RegisterStreamServiceHandlerFromEndpoint(ctx, mux, gw.cfg.StreamsRpcAddr, opts)
+	err = streamsv1.RegisterStreamServiceHandlerFromEndpoint(ctx, mux, gw.cfg.StreamsRPCAddr, opts)
 	if err != nil {
 		return nil, err
 	}
 
-	err = profilesv1.RegisterProfilesServiceHandlerFromEndpoint(ctx, mux, gw.cfg.ProfilesRpcAddr, opts)
+	err = profilesv1.RegisterProfilesServiceHandlerFromEndpoint(ctx, mux, gw.cfg.ProfilesRPCAddr, opts)
 	if err != nil {
 		return nil, err
 	}
 
-	err = minersv1.RegisterMinersServiceHandlerFromEndpoint(ctx, mux, gw.cfg.MinersRpcAddr, opts)
+	err = minersv1.RegisterMinersServiceHandlerFromEndpoint(ctx, mux, gw.cfg.MinersRPCAddr, opts)
 	if err != nil {
 		return nil, err
 	}
 
-	err = msv1.RegisterMediaServerServiceHandlerFromEndpoint(ctx, mux, gw.cfg.MediaServerRpcAddr, opts)
+	err = msv1.RegisterMediaServerServiceHandlerFromEndpoint(ctx, mux, gw.cfg.MediaServerRPCAddr, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -124,23 +124,23 @@ func NewRpcGateway(cfg *Config) (*RpcGateway, error) {
 	return gw, nil
 }
 
-func (gw *RpcGateway) Start() error {
+func (gw *RPCGateway) Start() error {
 	gw.logger.Infof("starting gateway on %s", gw.cfg.Addr)
 	return gw.e.Start(gw.cfg.Addr)
 }
 
-func (gw *RpcGateway) Stop() error {
+func (gw *RPCGateway) Stop() error {
 	return nil
 }
 
-func (gw *RpcGateway) route() {
+func (gw *RPCGateway) route() {
 	gw.e.Use(middleware.CORS())
 
 	gw.e.GET("/healthz", gw.health)
-	gw.e.GET("/metrics", echo.WrapHandler(prometheus.Handler()))
+	gw.e.GET("/metrics", echo.WrapHandler(prometheus.Handler()))  //nolint
 	gw.e.Any("/api/v1/*", echo.WrapHandler(gw.gw))
 }
 
-func (gw *RpcGateway) health(c echo.Context) error {
+func (gw *RPCGateway) health(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]string{"alive": "OK"})
 }
