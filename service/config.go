@@ -13,6 +13,7 @@ type Config struct {
 	ProfileManagerRPCAddr string `default:"0.0.0.0:5084"`
 	MinersRPCAddr         string `default:"0.0.0.0:5011"`
 	MediaServerRPCAddr    string `default:"0.0.0.0:5090"`
+	BillingRPCAddr        string `default:"0.0.0.0:5020"`
 
 	Logger *logrus.Entry `envconfig:"-"`
 }

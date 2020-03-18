@@ -10,6 +10,7 @@ import (
 	"github.com/labstack/echo/middleware"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
+	billingv1 "github.com/videocoin/cloud-api/billing/v1"
 	msv1 "github.com/videocoin/cloud-api/mediaserver/v1"
 	minersv1 "github.com/videocoin/cloud-api/miners/v1"
 	profilemanagerv1 "github.com/videocoin/cloud-api/profiles/manager/v1"
@@ -117,6 +118,11 @@ func NewRPCGateway(cfg *Config) (*RPCGateway, error) {
 		return nil, err
 	}
 
+	err = billingv1.RegisterBillingServiceHandlerFromEndpoint(ctx, mux, gw.cfg.BillingRPCAddr, opts)
+	if err != nil {
+		return nil, err
+	}
+
 	gw.gw = mux
 
 	gw.route()
@@ -137,7 +143,7 @@ func (gw *RPCGateway) route() {
 	gw.e.Use(middleware.CORS())
 
 	gw.e.GET("/healthz", gw.health)
-	gw.e.GET("/metrics", echo.WrapHandler(prometheus.Handler()))  //nolint
+	gw.e.GET("/metrics", echo.WrapHandler(prometheus.Handler())) //nolint
 	gw.e.Any("/api/v1/*", echo.WrapHandler(gw.gw))
 }
 
