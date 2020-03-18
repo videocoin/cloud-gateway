@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package cloud.api.billing.v1;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "v1";
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.goproto_registration) = true;
+option (gogoproto.messagename_all) = true;
+
+service BillingService {
+    rpc MakePayment(MakePaymentRequest) returns (MakePaymentResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/billing/pay"
+            body: "*"
+        };
+    }
+
+    rpc GetTransactions(TransactionRequest) returns (TransactionListResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/billing/transactions"
+        };
+    }
+
+    rpc SuccessStripeCallback(StripePaymentRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            get: "/api/v1/billing/stripe/{session_id}/success"
+        };
+    }
+
+    rpc CancelStripeCallback(google.protobuf.Empty) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            get: "/api/v1/billing/stripe/cancel"
+        };
+    }
+}
+
+message MakePaymentRequest {
+    int64 amount = 1;
+}
+
+message MakePaymentResponse {
+    string session_id = 2;
+}
+
+message TransactionRequest {}
+
+message TransactionResponse {}
+
+message TransactionListResponse  {
+    repeated TransactionResponse items = 1;
+}
+
+message StripePaymentRequest {
+    string session_id = 1;
+}
