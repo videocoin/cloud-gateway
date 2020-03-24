@@ -17,7 +17,7 @@ var (
 )
 
 func main() {
-	logger.Init(ServiceName, Version)  //nolint
+	logger.Init(ServiceName, Version) //nolint
 
 	log := logrus.NewEntry(logrus.New())
 	log = logrus.WithFields(logrus.Fields{
@@ -55,7 +55,7 @@ func main() {
 	}()
 
 	log.Info("starting")
-	go log.Error(gw.Start())
+	go gw.Start()
 
 	<-exit
 
