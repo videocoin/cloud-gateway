@@ -118,12 +118,13 @@ service MinersService {
     rpc UnassignTask(AssignTaskRequest) returns (google.protobuf.Empty) {}
     rpc GetForceTaskList(google.protobuf.Empty) returns (ForceTaskListResponse) {}
     rpc GetMinersWithForceTask(google.protobuf.Empty) returns (MinersWithForceTaskResponse) {}
+    rpc GetMinersCandidates(MinersCandidatesRequest) returns (MinersCandidatesResponse) {}
 }
 
 message RegistrationRequest {
     string client_id = 1 [(gogoproto.customname) = "ClientID"];
     string address = 2;
-  }
+}
 
 message MinerRequest {
     string id = 1;
@@ -141,6 +142,7 @@ message MinerResponse {
     map<string, string> tags = 4;
     SystemInfo system_info = 5;
     CryptoInfo crypto_info = 6;
+    CapacityInfo capacity_info = 7;
 }
 
 message MinerListResponse {
@@ -151,6 +153,7 @@ message PingRequest {
     string client_id = 1 [(gogoproto.customname) = "ClientID"];
     bytes system_info = 2;
     bytes crypto_info = 3;
+    bytes capacity_info = 4;
 }
   
 message PingResponse {}
@@ -181,4 +184,19 @@ message MinerWithForceTaskResponse {
 
 message MinersWithForceTaskResponse {
     repeated MinerWithForceTaskResponse items = 1;
+}
+
+message MinersCandidatesRequest {
+    int32 encodeCapacity = 1;
+    int32 cpuCapacity = 2;
+}
+
+message MinerCandidateResponse {
+    string id = 1;
+    int32 encodeCapacity = 2;
+    int32 cpuCapacity = 3;
+}
+
+message MinersCandidatesResponse {
+    repeated MinerCandidateResponse items = 1;
 }
