@@ -56,6 +56,7 @@ function get_vars() {
     readonly PROFILE_MANAGER_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/profileManagerRpcAddr`
     readonly MINERS_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/minersRpcAddr`
     readonly MS_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/msRpcAddr`
+    readonly BILLING_RPC_ADDR=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/vars/billingRpcAddr`
     readonly SENTRY_DSN=`consul kv get -http-addr=${CONSUL_ADDR} config/${ENV}/services/${CHART_NAME}/secrets/sentryDsn`
 }
 
@@ -73,6 +74,7 @@ function deploy() {
         --set config.profileManagerRpcAddr="${PROFILE_MANAGER_RPC_ADDR}" \
         --set config.minersRpcAddr="${MINERS_RPC_ADDR}" \
         --set config.msRpcAddr="${MS_RPC_ADDR}" \
+        --set config.billingRpcAddr="${BILLING_RPC_ADDR}" \
         --set secrets.sentryDsn="${SENTRY_DSN}" \
         --wait ${CHART_NAME} ${CHART_DIR}
 }
