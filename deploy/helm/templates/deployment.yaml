@@ -64,6 +64,11 @@ spec:
                 configMapKeyRef:
                   name: {{ .Chart.Name }}
                   key: msRpcAddr
+            - name: GATEWAY_BILLINGRPCADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Chart.Name }}
+                  key: billingRpcAddr
             - name: SENTRY_DSN
               valueFrom:
                 secretKeyRef:
