@@ -3,11 +3,14 @@ module github.com/videocoin/cloud-gateway
 go 1.12
 
 require (
+	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/gogo/gateway v1.1.0
 	github.com/grpc-ecosystem/grpc-gateway v1.11.3
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/labstack/echo v3.3.10+incompatible
-	github.com/prometheus/client_golang v0.9.4
+	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
+	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/prometheus/client_golang v1.5.1
 	github.com/sirupsen/logrus v1.4.2
 	github.com/videocoin/cloud-api v0.2.15
 	github.com/videocoin/cloud-pkg v0.0.6
