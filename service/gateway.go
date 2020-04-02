@@ -8,7 +8,8 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+
 	"github.com/sirupsen/logrus"
 	billingv1 "github.com/videocoin/cloud-api/billing/v1"
 	msv1 "github.com/videocoin/cloud-api/mediaserver/v1"
@@ -130,9 +131,12 @@ func NewRPCGateway(cfg *Config) (*RPCGateway, error) {
 	return gw, nil
 }
 
-func (gw *RPCGateway) Start() error {
+func (gw *RPCGateway) Start(errCh chan error) {
 	gw.logger.Infof("starting gateway on %s", gw.cfg.Addr)
-	return gw.e.Start(gw.cfg.Addr)
+	go func() {
+		errCh <- gw.e.Start(gw.cfg.Addr)
+	}()
+
 }
 
 func (gw *RPCGateway) Stop() error {
@@ -143,7 +147,7 @@ func (gw *RPCGateway) route() {
 	gw.e.Use(middleware.CORS())
 
 	gw.e.GET("/healthz", gw.health)
-	gw.e.GET("/metrics", echo.WrapHandler(prometheus.Handler())) //nolint
+	gw.e.GET("/metrics", echo.WrapHandler(promhttp.Handler()))
 	gw.e.Any("/api/v1/*", echo.WrapHandler(gw.gw))
 }
 

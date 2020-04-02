@@ -5,17 +5,17 @@ import (
 	"errors"
 )
 
-func (s TransactionStatus) Value() (driver.Value, error) {
-	return TransactionStatus_name[int32(s)], nil
+func (t TransactionType) Value() (driver.Value, error) {
+	return TransactionType_name[int32(t)], nil
 }
 
-func (s *TransactionStatus) Scan(src interface{}) error {
-	sid, ok := src.([]byte)
+func (t *TransactionType) Scan(src interface{}) error {
+	tid, ok := src.([]byte)
 	if !ok {
 		return errors.New("type assertion .([]byte) failed")
 	}
 
-	*s = TransactionStatus(TransactionStatus_value[string(sid)])
+	*t = TransactionType(TransactionType_value[string(tid)])
 
 	return nil
 }
