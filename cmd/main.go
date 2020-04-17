@@ -9,6 +9,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/videocoin/cloud-gateway/service"
 	"github.com/videocoin/cloud-pkg/logger"
+	"github.com/videocoin/cloud-pkg/tracer"
 )
 
 var (
@@ -25,12 +26,19 @@ func main() {
 		"version": Version,
 	})
 
+	closer, err := tracer.NewTracer(ServiceName)
+	if err != nil {
+		log.Info(err.Error())
+	} else {
+		defer closer.Close()
+	}
+
 	cfg := &service.Config{
 		Name:    ServiceName,
 		Version: Version,
 	}
 
-	err := envconfig.Process(ServiceName, cfg)
+	err = envconfig.Process(ServiceName, cfg)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
