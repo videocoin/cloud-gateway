@@ -1,12 +1,12 @@
-replicasCount: 3
+replicasCount: 1
 maxUnavailableCount: 0
 
 image:
-  repository: gcr.io/videocoin-network/gateway
+  repository: registry.videocoin.net/cloud/gateway
   tag: latest
   pullPolicy: Always
-
-config: {}
+  pullSecrets: 
+  - name: regcred
 
 service:
   type: ClusterIP
@@ -15,7 +15,7 @@ service:
 
 autoscaler:
   minCount: 1
-  maxCount: 10
+  maxCount: 3
   targets:
     targetCPUUtilizationPercentage: 70
 
@@ -26,6 +26,14 @@ resources:
   requests:
    cpu: 200m
    memory: 200Mi
+
+config:
+  usersRpcAddr: ""
+  streamsRpcAddr: ""
+  profilesRpcAddr: "profiles.console.svc.cluster.local:5004"
+  minersRpcAddr: ""
+  msRpcAddr: ""
+  billingRpcAddr: ""
 
 secrets:
   sentryDsn: ""
