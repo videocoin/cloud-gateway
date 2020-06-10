@@ -55,11 +55,6 @@ spec:
                 configMapKeyRef:
                   name: {{ .Chart.Name }}
                   key: profilesRpcAddr
-            - name: GATEWAY_PROFILEMANAGERRPCADDR
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Chart.Name }}
-                  key: profileManagerRpcAddr
             - name: GATEWAY_MINERSRPCADDR
               valueFrom:
                 configMapKeyRef:
@@ -91,9 +86,7 @@ spec:
         - name: secrets
           secret:
             secretName: {{ .Release.Name }}
+    {{- with .Values.nodeSelector }}
       nodeSelector:
-        cloud.google.com/gke-nodepool: api
-
-
-
-
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
