@@ -7,14 +7,10 @@ metadata:
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     heritage: {{ .Release.Service }}
 spec:
-  type: {{ .Values.service.type }}
-{{ if eq .Values.service.type "ClusterIP" }}
-  clusterIP: {{ .Values.service.clusterIP | default "None" | quote }}
-{{ end }}
   ports:
-    - port: {{ .Values.service.externalHttpPort }}
-      targetPort: {{ .Values.service.internalHttpPort }}
+    - port: {{ .Values.service.http }}
+      targetPort: {{ .Values.service.http }}
       protocol: TCP
-      name: grpc
+      name: http
   selector:
     app: {{ .Chart.Name }}

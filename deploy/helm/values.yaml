@@ -9,9 +9,7 @@ image:
   - name: regcred
 
 service:
-  type: ClusterIP
-  externalHttpPort: 8080
-  internalHttpPort: 8080
+  http: 8080
 
 autoscaler:
   minCount: 1
@@ -29,7 +27,7 @@ resources:
 
 ingress:
   enabled: true
-  host: cloud-gw.dev.videocoinapis.com
+  host: cloud.dev.videocoinapis.com
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-dns-prod
     kubernetes.io/ingress.class: nginx
