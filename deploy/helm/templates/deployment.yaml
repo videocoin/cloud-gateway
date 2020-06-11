@@ -22,15 +22,15 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.service.internalHttpPort }}
+            - containerPort: {{ .Values.service.http }}
           livenessProbe:
             httpGet:
               path: /healthz
-              port: {{ .Values.service.internalHttpPort }}
+              port: {{ .Values.service.http }}
           readinessProbe:
             httpGet:
               path: /healthz
-              port: {{ .Values.service.internalHttpPort }}
+              port: {{ .Values.service.http }}
           env:
             - name: JAEGER_AGENT_HOST
               valueFrom:
@@ -39,7 +39,7 @@ spec:
             - name: JAEGER_AGENT_PORT
               value: "6831"
             - name: GATEWAY_ADDR
-              value: 0.0.0.0:{{ .Values.service.internalHttpPort }}
+              value: 0.0.0.0:{{ .Values.service.http }}
             - name: GATEWAY_USERSRPCADDR
               valueFrom:
                 configMapKeyRef:
