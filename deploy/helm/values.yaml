@@ -34,13 +34,9 @@ ingress:
   secret: tls-cert-cloud-gateway
 
 config:
-  usersRpcAddr: ""
-  streamsRpcAddr: ""
-  profilesRpcAddr: "profiles.console.svc.cluster.local:5004"
-  minersRpcAddr: ""
-  msRpcAddr: ""
-  billingRpcAddr: ""
-
-secrets:
-  sentryDsn: ""
-
+  GATEWAY_USERSRPCADDR: "users.console.svc.cluster.local:5000"
+  GATEWAY_STREAMSRPCADDR: "streams.console.svc.cluster.local:5002"
+  GATEWAY_PROFILESRPCADDR: "profiles.console.svc.cluster.local:5004"
+  GATEWAY_MINERSRPCADDR: "miners.console.svc.cluster.local:5011"
+  GATEWAY_MEDIASERVERRPCADDR: "mediaserver.console.svc.cluster.local:5090"
+  GATEWAY_BILLINGRPCADDR: "billing.console.svc.cluster.local:5020"
