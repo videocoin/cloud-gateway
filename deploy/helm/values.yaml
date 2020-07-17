@@ -32,3 +32,17 @@ config:
   GATEWAY_MINERSRPCADDR: "miners.console.svc.cluster.local:5011"
   GATEWAY_MEDIASERVERRPCADDR: "mediaserver.console.svc.cluster.local:5090"
   GATEWAY_BILLINGRPCADDR: "billing.console.svc.cluster.local:5020"
+
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dns-prod
+    kubernetes.io/ingress.class: nginx
+  hosts:
+    - host: console.dev.videocoin.net
+      paths:
+        - "/api/v1"
+  tls:
+    - secretName: tls-cert-console-gateway
+      hosts:
+        - console.dev.videocoin.net
