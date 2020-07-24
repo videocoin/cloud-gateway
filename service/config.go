@@ -15,5 +15,4 @@ type Config struct {
 	MinersRPCAddr         string `default:"0.0.0.0:5011"`
 	MediaServerRPCAddr    string `default:"0.0.0.0:5090"`
 	BillingRPCAddr        string `default:"0.0.0.0:5020"`
-	DispatcherRPCAddr     string `default:"0.0.0.0:5008"`
 }

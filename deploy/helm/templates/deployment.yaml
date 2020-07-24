@@ -75,11 +75,6 @@ spec:
                 configMapKeyRef:
                   name: {{ .Chart.Name }}
                   key: billingRpcAddr
-            - name: GATEWAY_DISPATCHERRPCADDR
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Chart.Name }}
-                  key: dispatcherRpcAddr
             - name: SENTRY_DSN
               valueFrom:
                 secretKeyRef:

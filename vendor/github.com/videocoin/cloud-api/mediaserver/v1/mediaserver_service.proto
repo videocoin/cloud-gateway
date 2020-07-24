@@ -20,8 +20,6 @@ service MediaServerService {
             body: "*"
           };
     }
-
-    rpc Mux(MuxRequest) returns (MuxResponse) {}
 }
 
 message StreamRequest {
@@ -32,10 +30,3 @@ message StreamRequest {
 message WebRTCStreamResponse {
     string sdp = 1;
 }
-
-message MuxRequest {
-    string stream_id = 1;
-    string input_url = 2;
-}
-
-message MuxResponse {}
