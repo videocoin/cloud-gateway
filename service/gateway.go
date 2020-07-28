@@ -9,9 +9,9 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-
 	"github.com/sirupsen/logrus"
 	billingv1 "github.com/videocoin/cloud-api/billing/v1"
+	dispatcherv1 "github.com/videocoin/cloud-api/dispatcher/v1"
 	msv1 "github.com/videocoin/cloud-api/mediaserver/v1"
 	minersv1 "github.com/videocoin/cloud-api/miners/v1"
 	profilemanagerv1 "github.com/videocoin/cloud-api/profiles/manager/v1"
@@ -120,6 +120,11 @@ func NewRPCGateway(cfg *Config) (*RPCGateway, error) {
 	}
 
 	err = billingv1.RegisterBillingServiceHandlerFromEndpoint(ctx, mux, gw.cfg.BillingRPCAddr, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	err = dispatcherv1.RegisterDispatcherServiceHandlerFromEndpoint(ctx, mux, gw.cfg.DispatcherRPCAddr, opts)
 	if err != nil {
 		return nil, err
 	}
