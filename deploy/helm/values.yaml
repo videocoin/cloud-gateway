@@ -4,9 +4,12 @@ maxUnavailableCount: 0
 image:
   repository: registry.videocoin.net/cloud/gateway
   tag: latest
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   pullSecrets: 
   - name: regcred
+
+serviceAccount:
+  name: default
 
 service:
   http: 8080
@@ -22,8 +25,8 @@ resources:
    cpu: 200m
    memory: 200Mi
   requests:
-   cpu: 200m
-   memory: 200Mi
+   cpu: 10m
+   memory: 16Mi
 
 config:
   GATEWAY_USERSRPCADDR: "users.console.svc.cluster.local:5000"

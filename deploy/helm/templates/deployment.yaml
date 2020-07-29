@@ -1,11 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Chart.Name }}
   labels:
-    app: {{ .Release.Name }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    heritage: {{ .Release.Service }}
+    app: {{ .Chart.Name }}
 spec:
   replicas: {{ .Values.replicasCount | default  "1" }}
   strategy:
@@ -13,12 +11,18 @@ spec:
       maxUnavailable: {{ .Values.maxUnavailableCount }}
   template:
     metadata:
-      name: {{ .Release.Name }}
+      name: {{ .Chart.Name }}
       labels:
-        app: {{ .Release.Name }}
+        app: {{ .Chart.Name }}
     spec:
+    {{- with .Values.image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      automountServiceAccountToken: true
       containers:
-        - name: {{ .Release.Name }}
+        - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -50,7 +54,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: {{ .Release.Name }}
+            name: {{ .Chart.Name }}
     {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
