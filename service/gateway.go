@@ -14,8 +14,6 @@ import (
 	dispatcherv1 "github.com/videocoin/cloud-api/dispatcher/v1"
 	msv1 "github.com/videocoin/cloud-api/mediaserver/v1"
 	minersv1 "github.com/videocoin/cloud-api/miners/v1"
-	profilemanagerv1 "github.com/videocoin/cloud-api/profiles/manager/v1"
-	profilesv1 "github.com/videocoin/cloud-api/profiles/v1"
 	streamsv1 "github.com/videocoin/cloud-api/streams/v1"
 	usersv1 "github.com/videocoin/cloud-api/users/v1"
 	"github.com/videocoin/cloud-pkg/grpcutil"
@@ -89,22 +87,12 @@ func NewRPCGateway(cfg *Config) (*RPCGateway, error) {
 	)
 	opts := grpcutil.DefaultClientDialOpts(cfg.Logger)
 
-	err := profilemanagerv1.RegisterProfileManagerServiceHandlerFromEndpoint(ctx, mux, gw.cfg.ProfileManagerRPCAddr, opts)
+	err := usersv1.RegisterUserServiceHandlerFromEndpoint(ctx, mux, gw.cfg.UsersRPCAddr, opts)
 	if err != nil {
 		return nil, err
 	}
 
-	err = usersv1.RegisterUserServiceHandlerFromEndpoint(ctx, mux, gw.cfg.UsersRPCAddr, opts)
-	if err != nil {
-		return nil, err
-	}
-
-	err = streamsv1.RegisterStreamServiceHandlerFromEndpoint(ctx, mux, gw.cfg.StreamsRPCAddr, opts)
-	if err != nil {
-		return nil, err
-	}
-
-	err = profilesv1.RegisterProfilesServiceHandlerFromEndpoint(ctx, mux, gw.cfg.ProfilesRPCAddr, opts)
+	err = streamsv1.RegisterStreamsServiceHandlerFromEndpoint(ctx, mux, gw.cfg.StreamsRPCAddr, opts)
 	if err != nil {
 		return nil, err
 	}

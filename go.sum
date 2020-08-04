@@ -370,6 +370,8 @@ github.com/valyala/fasttemplate v1.0.1/go.mod h1:UQGH1tvbgY+Nz5t2n7tXsz52dQxojPU
 github.com/videocoin/cloud-api v0.0.17/go.mod h1:6HhpNaw1C8VsYtRpaF2gNZCKJmZjWjeQwXHn4lvm1QQ=
 github.com/videocoin/cloud-api v1.1.1 h1:sgasSEU/+/M67vJ0IpNy7Hrdv4dUiqTLNzalq0tnjR4=
 github.com/videocoin/cloud-api v1.1.1/go.mod h1:jnRiyPFJqrvbyUuw8SPJ8nI4oftrxhtYCOGoop6iatg=
+github.com/videocoin/cloud-api v1.1.2 h1:3y9AV5cIFbLvRBrF5Z/StR+E6nT/3lUO4Y0yvsC1RiU=
+github.com/videocoin/cloud-api v1.1.2/go.mod h1:jnRiyPFJqrvbyUuw8SPJ8nI4oftrxhtYCOGoop6iatg=
 github.com/videocoin/cloud-pkg v1.0.0 h1:qTWfRcX+QxXPX9+LN0Btd5ZHPAKUtpfZC61vOZdjv+M=
 github.com/videocoin/cloud-pkg v1.0.0/go.mod h1:QLg9cvsJFNxK5FjsjoMfaDhQGXbEpwOxmt8slmPXUJY=
 github.com/wsddn/go-ecdh v0.0.0-20161211032359-48726bab9208/go.mod h1:IotVbo4F+mw0EzQ08zFqg7pK3FebNXpaMsRy2RT+Ees=
