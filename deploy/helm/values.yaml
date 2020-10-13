@@ -29,6 +29,8 @@ resources:
    memory: 16Mi
 
 config:
+  JAEGER_AGENT_HOST: "jaeger-agent.istio-system.svc.cluster.local"
+  JAEGER_AGENT_PORT: "6831"
   GATEWAY_USERSRPCADDR: "users.console.svc.cluster.local:5000"
   GATEWAY_STREAMSRPCADDR: "streams.console.svc.cluster.local:5002"
   GATEWAY_PROFILESRPCADDR: "profiles.console.svc.cluster.local:5004"

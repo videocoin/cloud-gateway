@@ -2,12 +2,14 @@ package service
 
 import (
 	"context"
-	"net/http"
-
 	"github.com/gogo/gateway"
+	grpcmiddleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	grpctracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
+	grpcprometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	opentracing "github.com/opentracing/opentracing-go"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	billingv1 "github.com/videocoin/cloud-api/billing/v1"
@@ -17,7 +19,11 @@ import (
 	streamsv1 "github.com/videocoin/cloud-api/streams/v1"
 	usersv1 "github.com/videocoin/cloud-api/users/v1"
 	"github.com/videocoin/cloud-pkg/grpcutil"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/metadata"
+	"net/http"
+	"time"
 )
 
 func injectHeadersIntoMetadata(ctx context.Context, req *http.Request) metadata.MD {
@@ -85,7 +91,30 @@ func NewRPCGateway(cfg *Config) (*RPCGateway, error) {
 		runtime.WithMetadata(chainGrpcAnnotators(annotators...)),
 		grpcutil.WithProtoHTTPErrorHandler(),
 	)
-	opts := grpcutil.DefaultClientDialOpts(cfg.Logger)
+
+	tracerOpts := grpctracing.WithTracer(opentracing.GlobalTracer())
+	opts := []grpc.DialOption{
+		grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(
+			grpc.UnaryClientInterceptor(grpcmiddleware.ChainUnaryClient(
+				//grpclogrus.UnaryClientInterceptor(cfg.Logger),
+				grpctracing.UnaryClientInterceptor(tracerOpts),
+				grpcprometheus.UnaryClientInterceptor,
+			)),
+		),
+		grpc.WithStreamInterceptor(
+			grpc.StreamClientInterceptor(grpcmiddleware.ChainStreamClient(
+				//grpclogrus.StreamClientInterceptor(cfg.Logger),
+				grpctracing.StreamClientInterceptor(tracerOpts),
+				grpcprometheus.StreamClientInterceptor,
+			)),
+		),
+		grpc.WithKeepaliveParams(keepalive.ClientParameters{
+			Time:                time.Second * 10,
+			Timeout:             time.Second * 10,
+			PermitWithoutStream: true,
+		}),
+	}
 
 	err := usersv1.RegisterUserServiceHandlerFromEndpoint(ctx, mux, gw.cfg.UsersRPCAddr, opts)
 	if err != nil {
