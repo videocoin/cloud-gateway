@@ -349,6 +349,8 @@ github.com/videocoin/cloud-api v1.1.4 h1:i7Uqgt6qyFMaoz4M8Tek+DhWh7d73zL0yGlsrzM
 github.com/videocoin/cloud-api v1.1.4/go.mod h1:jnRiyPFJqrvbyUuw8SPJ8nI4oftrxhtYCOGoop6iatg=
 github.com/videocoin/cloud-api v1.1.5 h1:kSFsoDstXSzG2zW6tHds47xiVxc/ZsZvNhsBDCFIdaM=
 github.com/videocoin/cloud-api v1.1.5/go.mod h1:jnRiyPFJqrvbyUuw8SPJ8nI4oftrxhtYCOGoop6iatg=
+github.com/videocoin/cloud-api v1.1.6 h1:njqB8w4tndoor4/oPdu1x7f6lVEgxR831KGGopI4qCw=
+github.com/videocoin/cloud-api v1.1.6/go.mod h1:jnRiyPFJqrvbyUuw8SPJ8nI4oftrxhtYCOGoop6iatg=
 github.com/videocoin/cloud-pkg v1.0.0 h1:qTWfRcX+QxXPX9+LN0Btd5ZHPAKUtpfZC61vOZdjv+M=
 github.com/videocoin/cloud-pkg v1.0.0/go.mod h1:QLg9cvsJFNxK5FjsjoMfaDhQGXbEpwOxmt8slmPXUJY=
 github.com/wsddn/go-ecdh v0.0.0-20161211032359-48726bab9208/go.mod h1:IotVbo4F+mw0EzQ08zFqg7pK3FebNXpaMsRy2RT+Ees=
